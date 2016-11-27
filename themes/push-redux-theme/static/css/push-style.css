@@ -1,0 +1,36 @@
+/* 
+
+Main Color: #2BA6E3
+Light Color: ;
+*/
+
+
+.push-redux-card {
+	border: 1px solid #2BA6E3;
+	border-top: 10px solid #2BA6E3;
+	border-radius: 10px;
+	min-height: 150px;
+}
+.push-redux-card:hover{
+	box-shadow: 0 2px 5px #AAA;
+}
+.push-redux-card h4 {
+	color:#2BA6E3;
+}
+
+.push-redux-card-title {
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color: #2BA6E3;
+}
+.push-redux-card-title h4 {
+	color: white;
+	margin: 0;
+}
+
+.push-redux-card-body {
+	margin-top: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+	line-height: 1.5em;
+}
