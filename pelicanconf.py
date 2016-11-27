@@ -43,6 +43,6 @@ INDEX_SAVE_AS = 'blog_index.html'
 PLUGIN_PATHS = ['plugins']
 PLUGINS = ['page-hierarchy']
 
-PAGE_URL = '{slug}/'
-PAGE_SAVE_AS = '{slug}/index.html'
-SLUGIFY_SOURCE = 'basename'
+# PAGE_URL = '{slug}/'
+# PAGE_SAVE_AS = '{slug}/index.html'
+# SLUGIFY_SOURCE = 'basename'

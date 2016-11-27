@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Introduction To Push</title>
+
+    <link rel="stylesheet" href="../../theme/css/normalize.css" />
+    <link rel="stylesheet" href="../../theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="../../theme/css/style.css" />
+    <link rel="stylesheet" href="../../theme/css/pygments.css" />	
+    <link rel="stylesheet" href="../../theme/css/push-style.css" />	
+    <script src="../../theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+</head>
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="../..">Push Redux</a></h1>
+    </div>
+</div>
+</div>
+</nav>
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-10 columns">
+        
+    <h3>Introduction To Push</h3>
+    
+    <p><a name="push_lang"></a> </p>
+<h4>The Push Language</h4>
+<p>The following paragraph has been taken from the Push language <a href="http://faculty.hampshire.edu/lspector/push.html">homepage</a>.</p>
+<blockquote>
+<p>Push is a programming language designed for evolutionary computation, to be used as the programming language within which evolving programs are expressed. Push features a stack-based execution architecture in which there is a separate stack for each data type. In Push, "code" itself is a data type, allowing programs to manipulate their own code as they run and thereby to implement arbitrary and potentially novel control structures. This expressiveness is combined with syntactic minimality: the only syntax rule is that parentheses must be balanced. It is therefore trivial to generate and transform syntactically valid Push programs.</p>
+</blockquote>
+<p>To demonstrate how Push works, and some of its benefits, we will step through the execution of a simple Push program.</p>
+<p>Consider the folloing program: :code:</p>
+<p><code>(5 "10" string_from_integer exec_dup (string_concat integer_from_string))</code></p>
+<p>The first step to executing a push program is to push the whole program (as a list) onto the exec stack. Below is the state of the Push stacks.</p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td><code>(5 "10" string_from_integer exec_dup (string_concat integer_from_string))</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td></td>
+</tr>
+<tr>
+<td>String</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Generally, Push language implementations contain more stacks than the 3 listed above, but this example only requires the 3 thus they are the only stacks shown.</p>
+<p>Each step of Push program execution involves 1) popping the top item off the exec stack. 2) Processing the item in the interpreter 3) Pushing the result onto the appropriate stack, when applicable.</p>
+<p>For the first step of execution, the only item on the exec stack is a list containing the entire program. When the push interpreter encounters a list, it simply pushes the contents of the list onto the exec stack in reverse order (which preserves the execution order). The resulting state of the stacks is as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td><code>5 "10" string_from_integer exec_dup (string_concat integer_from_string)</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td></td>
+</tr>
+<tr>
+<td>String</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>At this stage in our example, the item on top of the exec stack is a 5, which is a literal value (as opposed to an instruction, which we will see later). When a literal value is processed by the interpreter, it is simply placed on the stack corresponding to its type. Thus, the new state is as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td><code>"10" string_from_integer exec_dup (string_concat integer_from_string)</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>5</td>
+</tr>
+<tr>
+<td>String</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>For the next step in the program execution, the item that is now on top of the exec stack is another literal. This time it is a string. </p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td><code>string_from_integer exec_dup (string_concat integer_from_string)</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>5</td>
+</tr>
+<tr>
+<td>String</td>
+<td>"10"</td>
+</tr>
+</tbody>
+</table>
+<p>Now the top item on the exec stack is an instruction. An instruction is a function that has access to the items on the stacks, and can push its result on to any of the stacks. Pysh contains a fairly comprehensive instruction set, documentend on the :doc:<code>Instruction Set Page &lt;Instructions&gt;</code>. It is also simple to define your own instructions (explained :doc:<code>here &lt;custom_instructions&gt;</code>).</p>
+<p>The <code>string_from_integer</code> instruction is the instruction that will pop the top integer, cast it to a string, and then push the resulting string onto the string stack. Thus, the resulting state of the stacks is as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td><code>exec_dup (string_concat integer_from_string)</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td></td>
+</tr>
+<tr>
+<td>String</td>
+<td>"5" 10"</td>
+</tr>
+</tbody>
+</table>
+<p>The next item on the exec stack is the <code>exec_dup</code> instruction. This instruction demonstrates the expressivness of the Push language. Push programs continue to run until the exec stack is empty. Push instructions have the ability to modify the stacks, including the exec stack. This makes it trival to create instructions that implement various forms of conditionals, modularity, and code reuse. The <code>exec_dup</code> instruction is one of the simplest forms of code reuse. It pushes a copy of the next item on the exec stack to the exec stack. </p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td><code>(string_concat integer_from_string) (string_concat integer_from_string)</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td></td>
+</tr>
+<tr>
+<td>String</td>
+<td>"5" 10"</td>
+</tr>
+</tbody>
+</table>
+<p>In this case, the duplicated item was a list of instructions. We can see now that this has the potential to reuse large sections of code easily.</p>
+<p>The top item on the exec stack is now a list. As mentioned above, the contents will be pushed onto the exec stack in reverse order.</p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td><code>string_concat integer_from_string (string_concat integer_from_string)</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td></td>
+</tr>
+<tr>
+<td>String</td>
+<td>"5" 10"</td>
+</tr>
+</tbody>
+</table>
+<p>Now the top item of the exec stack is the <code>string_concat</code> instruction. This instruction will concatenate the top two strings and push the result back onto the string stack.</p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td><code>integer_from_string (string_concat integer_from_string)</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td></td>
+</tr>
+<tr>
+<td>String</td>
+<td>"105"</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>integer_from_string</code> instruction parses the top string to an integer and pushes the result to the integer stack.</p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td><code>(string_concat integer_from_string)</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>105</td>
+</tr>
+<tr>
+<td>String</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The next item on the exec stack is a list, so it will be unpacked.</p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td><code>string_concat integer_from_string</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>105</td>
+</tr>
+<tr>
+<td>String</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Next, the interpreter will encouter another <code>string_concat</code> instruction, but there are no items on the string stack. Push was designed so that any nested structure of literals and instructions is a valid program (assuming balanced parentheses). One important behavior of Push interpreters that helps acheive this design is how instructions are handled when the required arguments aren't present. In cases like this, the instruction is skipped over. In other words, no values are popped from the stacks except the instruction on the exec stack.</p>
+<p>This behavior is extremely important when using the Push language in Genetic Programming frameworks (like Pysh) because randomly generated programs often contain many instructions that do not have the required instructions when executed.</p>
+<p>The resulting state of the stack will simply be as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td><code>integer_from_string</code></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>105</td>
+</tr>
+<tr>
+<td>String</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The <code>integer_from_string</code> instruction is also lacking arguments, and will be ignored.</p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exec</td>
+<td></td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>105</td>
+</tr>
+<tr>
+<td>String</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The above state is the output of the push program. The remaining items on the stacks can be utilized as needed.</p>
+<p><a name="push_gp"></a> </p>
+<h4>Push Genetic Programming</h4>
+<p>The following paragraph has been taken from the Push language <a href="http://faculty.hampshire.edu/lspector/push.html">homepage</a>.</p>
+<blockquote>
+<p>PushGP is a genetic programming system that evolves programs in the Push programming language. Features include:
+- Multiple data types without constraints on code generation or manipulation.
+- Arbitrary control structures without constraints on code generation or manipulation.
+- Arbitrary modularity without constraints on code generation or manipulation.
+- Automatic program simplification.</p>
+</blockquote>
+<h5>Generating Random Programs</h5>
+<p>Pysh can generate random Plush genomes, rather than Push programs. The difference between Plush Genomes and Push Programs is explained in detail on the <a href="../programs_and_genomes/">Programs and Genomes page</a>. Plush genomes can easily be translated into Push programs and executed.</p>
+<p>When generating random genomes, Pysh relys on <strong>atom generators</strong> and <strong>epigenetic markers</strong>.</p>
+<p>An "atom" refers to either an instruction or a literal. <strong>Atom generators</strong> are things that produce an "atom". For example, an anonymous function that returns a random floating point value between 0 and 1 could be an <strong>atom generator</strong>. At the time of random program generation (but NOT program execution) this anonymous function could be used to generate a literal in the program. An instruction can also be considered an <strong>atom generator</strong> that adds itself to the random program.</p>
+<p>When generating a random genome, Pysh selects <strong>atom generators</strong> at random. If the atom generator is a constant, it is added to the genome. If the atom generator is an anonymous function, it is called and its response if added to the genome. If the atom generator is an instruction, it is added to the genome. Instructions can be either registered instructions from the :doc:<code>Pysh instruction set &lt;Instructions&gt;</code> or one of the :doc:<code>special I/O instructions &lt;Input_Output_Instr&gt;</code>.</p>
+<p><strong>Epigenetic Markers</strong> are how the nested structure of a push program is captured in the linear genome. They are extra values associated with each gene that denotes if the gene places an parenthesis in the program, and/or if the gene is silent. <strong>Epigenetic Markers</strong> are discussed more in depth on the <a href="../programs_and_genomes/">Programs and Genomes page</a>. </p>
+<p>When generating random individuals during PushGP, random Plush genomes are generated and translated into programs. The individuals in the evolutionary population store both their genomes and their programs. Programs are executed during the indivudals fitness evaluations, while genomes are manipulated by the genetic operators. When new genomes are needed (aka offspring) a new individual is created with the new genome, and the program for the new individual is produced by translating the new genome.</p>
+<h5>Evaluating Programs</h5>
+<p>Every Genetic Programming problem requires an error function, sometimes called a fitness function. This function takes a program produced by evolution, executes it, and evaluates how well it solved the problem.</p>
+<p>In most Push GP systems, error functions return a vector of numbers representing the program's error on each test case. The total error of the program is the sum of the error vector. During evolution, some selection methods select parents based on a program's total error, while other utilize the dis-aggregated error vector.</p>
+<p>A program whose total error is equal to, or below, the stopping threshold paremeter (default to 0) is considered a solution.</p>
+<blockquote>
+<p>Currently Pysh only supports using evolution to minimize a programs <em>errors</em>. It is also common to evaluate programs based on a <em>fitness</em> value that evolution attempts to maximize, but this is not supported by Pysh.</p>
+</blockquote>
+<p>In Pysh, error functions are simply python functions. These</p>
+<h5>Selection and Variation</h5>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-2 columns">
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="https://push-language.hampshire.edu/">Push Discourse</a></li>
+            <li><a href="http://faculty.hampshire.edu/lspector/push.html">Push Homepage</a></li>
+        </ul>
+        
+
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="../../archives.html">Archives</a>
+            <li><a href="../../tags.html">Tags</a>
+
+
+        </ul>
+
+     
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="../../category/pushgp.html">PushGP</a></li>
+   
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Push Redux by Eddie</p>
+            </div>
+            </div>
+    </div>
+</footer>
