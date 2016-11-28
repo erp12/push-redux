@@ -10,10 +10,22 @@
     <link rel="stylesheet" href="../../theme/css/foundation.min.css" />
     <link rel="stylesheet" href="../../theme/css/style.css" />
     <link rel="stylesheet" href="../../theme/css/pygments.css" />	
-    <link rel="stylesheet" href="../../theme/css/push-style.css" />	
     <script src="../../theme/js/custom.modernizr.js"></script>
 
     <!-- So Firefox can bookmark->"abo this site" -->
+
+    <!-- PUSH REDUX CUSTOM STUFF -->
+    <!-- Enable latex -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../../theme/css/push-style.css" /> 
 
 </head>
 <body>
@@ -37,7 +49,57 @@
         
     <h3>Evolutionary Operators</h3>
     
-    <p>A description of slection, mutation, and recombination operators typically used in PushGP systems.</p>
+    <blockquote>
+<p>To learn more about Selection, Mutation, and Recombination algorithms, I would highly recomend the "Field Guide To Genetic Programming" book, which is freely shared online <a href="http://dces.essex.ac.uk/staff/rpoli/gp-field-guide/A_Field_Guide_to_Genetic_Programming.pdf">here</a>.</p>
+</blockquote>
+<p><a name="selection"></a> </p>
+<h4>Selection</h4>
+<p>A selection event refers to the points during evolution where an individual is e probabilistically chosen based on fitness. Individuals with better fitness (ie. lower error) are more likely to be chosen. The chosen individuals are typically used as "parents" in Mutaion or Recombination.</p>
+<h5>Lexicase Selection</h5>
+<p>Lexicase selection is the default selection method for Pysh.</p>
+<blockquote>
+<p>"Unlike most traditional parent selection techniques, lexicase selection does not base selection on a fitness value that is aggregated over all test cases; rather, it considers test cases one at a time in random order" 
+-- T. Helmuth, L. Spector</p>
+</blockquote>
+<p>Lexicase selection follows the following procedure:</p>
+<div class="highlight"><pre><span></span>1. Set CANDIDATES to be the entire population.
+2. Set CASES to be a list of all of the test CASES in random order.
+3. Loop:
+    a. Set CANDIDATES to be the subset of the current CANDIDATES that have exactly the best performance of any individual currently in CANDIDATES for the first case in CASES
+    b. If CANDIDATES contains just a single individual then return it.
+    c. If CASES contains just a single test case then return a randomly selected individual from CANDIDATES
+    d. Otherwise remove the first case from CASES and go to Loop.
+</pre></div>
+
+
+<p><a href="http://faculty.hampshire.edu/lspector/pubs/lexicase-IEEE-TEC.pdf">reference</a></p>
+<p>For more information about Lexicase selection, and its benefits, see the following publications:</p>
+<ul>
+<li><a href="http://faculty.hampshire.edu/lspector/pubs/lexicase-IEEE-TEC.pdf">Solving Uncompromising Problems with Lexicase Selection</a></li>
+<li><a href="http://cs.wlu.edu/~helmuth/Pubs/2015-GPTP-lexicase-diversity-analysis.pdf">Lexicase selection for program synthesis: a diversity analysis</a></li>
+<li><a href="http://cs.wlu.edu/~helmuth/Pubs/2016-GECCO-hyperselection.pdf">The Impact of Hyperselection on Lexicase Selection</a></li>
+</ul>
+<h5>Epsilon Lexicase Selection</h5>
+<p>Lexicase selection generally performs poorly on problems that use continuous outpus, such as regression. Epsilon Lexicase Selection is a form of lexicase selection that allows candidates to pass a test case as long as their error is within <em>epsilon</em> ($\epsilon$) of the error of the best candidate on the test case. This change dramatically increases the performance of lexicase selection on regression problems.</p>
+<p>For more information about Epsilon Lexicase selection, and its benefits, see the following publication:</p>
+<ul>
+<li><code>Epsilon-lexicase selection for regression &lt;http://www.williamlacava.com/pubs/GECCO_lex_reg_preprint.pdf&gt;</code>_</li>
+</ul>
+<h5>Tournament Selection</h5>
+<p>Tournament selection involved selecting the individual with the lowest total error from a small, random subset of the population. This subset is called the tournament. Each time a selection event occurs, a new random subset of the population is placed into the tournament.</p>
+<p><a name="mutation"></a> </p>
+<h4>Mutation</h4>
+<p>Mutation operators randomly modify a single parent to create new individuals. These modifications usually invlove inserting random code, or removing random parts of the parent. </p>
+<h5>Uniform Mutation</h5>
+<p>Uniformly mutates individual. For each token in genome, there is <em>uniform_mutation_rate</em> probability of being mutated. If a token is to be mutated, it has a uniform_mutation_constant_tweak_rate probability of being mutated using a constant mutator (which varies depending on the type of the token), and otherwise is replaced with a random instruction.</p>
+<h5>Uniform Close Mutation</h5>
+<p>Uniformly mutates the <em>close</em> markers in the individual's plush genes. Each <em>close</em> will have a <em>uniform_close_mutation_rate</em> probability of being changed, and those that are changed have a <em>close_increment_rate</em> chance of being incremented, and are otherwise decremented.</p>
+<p><a name="recombination"></a> </p>
+<h4>Recombination</h4>
+<p>Recombination operators typically use 2 or more parents. Unlike mutation, the resulting individual is composed entirely of parts of the parents.</p>
+<h5>Alternation</h5>
+<p>Uniformly alternates between the two parent plush genomes.</p>
+<h5>Crossover</h5>
     </div>
     <!-- End Main Content -->
 

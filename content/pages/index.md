@@ -44,15 +44,16 @@ Push is programming language that plays nice with evolutionay computing / geneti
     - [The Push Language](pages/intro_to_push/index.html#push_lang)
     - [Push Genetic Programming](pages/intro_to_push/index.html#push_gp)
     - Key Features
-        + Control Structures
-        + Program Simplification
+        + [Instruction Set](pages/instructions/)
+        + [Control Structures](pages/control_structures/)
+        + [Program Simplification](pages/simplification/)
 * [Programs and Genomes](pages/programs_and_genomes/)
     - [Push Programs](pages/programs_and_genomes/index.html#push_programs)
     - [Plush Genomes](pages/programs_and_genomes/index.html#plush_genomes)
-* Genetic Operators
-    - Selection
-    - Mutuation
-    - Recombination (Crossover)
+* [Genetic Operators](pages/genetic_operators/)
+    - [Selection](pages/genetic_operators/index.html#selection)
+    - [Mutuation](pages/genetic_operators/index.html#mutation)
+    - [Recombination](pages/genetic_operators/index.html#recombination)
 * Push in Action
     - Push(GP) Implementations
     - Applications and Publications

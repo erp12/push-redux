@@ -10,10 +10,22 @@
     <link rel="stylesheet" href="./theme/css/foundation.min.css" />
     <link rel="stylesheet" href="./theme/css/style.css" />
     <link rel="stylesheet" href="./theme/css/pygments.css" />	
-    <link rel="stylesheet" href="./theme/css/push-style.css" />	
     <script src="./theme/js/custom.modernizr.js"></script>
 
     <!-- So Firefox can bookmark->"abo this site" -->
+
+    <!-- PUSH REDUX CUSTOM STUFF -->
+    <!-- Enable latex -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./theme/css/push-style.css" /> 
 
 </head>
 <body>
@@ -77,8 +89,9 @@
 <li><a href="pages/intro_to_push/index.html#push_lang">The Push Language</a></li>
 <li><a href="pages/intro_to_push/index.html#push_gp">Push Genetic Programming</a></li>
 <li>Key Features<ul>
-<li>Control Structures</li>
-<li>Program Simplification</li>
+<li><a href="pages/instructions/">Instruction Set</a></li>
+<li><a href="pages/control_structures/">Control Structures</a></li>
+<li><a href="pages/simplification/">Program Simplification</a></li>
 </ul>
 </li>
 </ul>
@@ -88,10 +101,10 @@
 <li><a href="pages/programs_and_genomes/index.html#plush_genomes">Plush Genomes</a></li>
 </ul>
 </li>
-<li>Genetic Operators<ul>
-<li>Selection</li>
-<li>Mutuation</li>
-<li>Recombination (Crossover)</li>
+<li><a href="pages/genetic_operators/">Genetic Operators</a><ul>
+<li><a href="pages/genetic_operators/index.html#selection">Selection</a></li>
+<li><a href="pages/genetic_operators/index.html#mutation">Mutuation</a></li>
+<li><a href="pages/genetic_operators/index.html#recombination">Recombination</a></li>
 </ul>
 </li>
 <li>Push in Action<ul>
