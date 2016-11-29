@@ -1,5 +1,4 @@
 Title: Programs and Genomes
-Slug: programs_and_genomes
 Summary: Push Programs and Plush Genomes
 
 

@@ -1,5 +1,4 @@
 Title: Introduction To Push
-Slug: intro_to_push
 Summary: Introduction to the Push language and Push Genetic Programming.
 
 <a name="push_lang"></a> 

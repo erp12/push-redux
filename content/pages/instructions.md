@@ -1,5 +1,4 @@
 Title: Push Instructions
-Slug: instructions
 
 #### What are Push Instructions?
 

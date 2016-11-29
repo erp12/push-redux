@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>How to Contribute to the Push Redux</title>
+
+    <link rel="stylesheet" href="../../theme/css/normalize.css" />
+    <link rel="stylesheet" href="../../theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="../../theme/css/style.css" />
+    <link rel="stylesheet" href="../../theme/css/pygments.css" />	
+    <script src="../../theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+    <!-- PUSH REDUX CUSTOM STUFF -->
+    <!-- Enable latex -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../../theme/css/push-style.css" /> 
+
+</head>
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="../..">Push Redux</a></h1>
+    </div>
+</div>
+</div>
+</nav>
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-10 columns">
+        
+    <h3>How to Contribute to the Push Redux</h3>
+    
+    <p>The Push Redux is an implementation agnostic place to document things about Push and PushGP. It is hosted on <a href="https://pages.github.com/">Github Pages</a> and is built using <a href="http://blog.getpelican.com/">Pelican</a>. The content is written in <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> and then built into static HTML pages. All contributions are handled through <a href="https://help.github.com/articles/about-pull-requests/">GitHub Pull Requests</a>.</p>
+<p>This document aims to explain how to contribute to the Push Redux. </p>
+<h4>Table of Contents</h4>
+<ol>
+<li>Required Background Knowledge</li>
+<li>Basics of Pelican and Github Pages<ul>
+<li>Getting Set Up</li>
+<li>Previewing Changes Locally</li>
+<li>Pushing changes</li>
+</ul>
+</li>
+<li>Modifying Existing Pages</li>
+<li>Creating New Pages</li>
+<li>Creating New Blog Posts</li>
+<li>Modifying the Style</li>
+<li>Modifying the Theme</li>
+<li>Modifying the Sidebar Links</li>
+</ol>
+<h4>Required Background Knowledge</h4>
+<p>For this guide I will assume you know the basics of:</p>
+<ul>
+<li>Unix. This guide also assumes you are on a unix machine, or know how to perform the equivalent actions on windows.</li>
+<li>Installing python packages using <code>pip</code>.</li>
+<li>Writing documents in Markdown.</li>
+<li>Working with a fork of a Git repository you found on GitHub.</li>
+</ul>
+<h4>Basics of Pelican and Github Pages</h4>
+<p>Pelican is a static site generator that requires no database or server-side logic. This means that Pelican can take in content (written in Markdown) and output a static web page (HTML/css/js). This makes it ideal for creating a site on GitHub Pages.</p>
+<h5>Getting Set Up</h5>
+<p>To get started using Pelican, first you need Pelican! Use <code>pip</code> to get it.</p>
+<div class="highlight"><pre><span></span>pip install pelican markdown
+</pre></div>
+
+
+<p>Make sure you include <code>markdown</code> because we will use it.</p>
+<p>Next, you must fork the push-redux GitHub repo. Once the repo is forked, clone the repo so you can edit your fork locally.</p>
+<p>Once the repo is cloned, <code>cd</code> into the project folder. You should see the following folders and files.</p>
+<div class="highlight"><pre><span></span>content/
+docs/
+themes/
+Makefile
+pelicanconf.py
+publishconf.py
+</pre></div>
+
+
+<p>There will likely be other files and folders in the <code>push-redux</code> repo, but won't need to talk about them in this guide.</p>
+<p>The <code>content/</code> folder contains all of the Markdown files that make up the pages and posts in the final web page.</p>
+<p>The <code>docs/</code> folder is where Github Pages looks for static web pages to display when a browser goes to <code>erp12.github.io/push-redux/</code>. This means that Pelican will place the HTML/css/js/etc in the <code>docs/</code> folder when we build our static website.</p>
+<p>The <code>themes/</code> folder contains folders of themes that determine the layout and style of the Push Redux website. Pelican uses the Jinja template-ing engine to create themes. Modifying the contents of the <code>themes/</code> folder will only be necessary if you intend to modify the sites layout and style. </p>
+<p><code>pelicanconf.py</code> and <code>publishconf.py</code> are python modules. They behave like simple settings files with Python syntax. These files will likely be the only Python coding required to contribute to the Push Redux, and it is very unlikely any modifications to these files will be needed.</p>
+<p>The <code>Makefile</code> assists in building the Pelican project into a static site. See the next section.</p>
+<h5>Previewing Changes Locally</h5>
+<p>To preview the site locally, simply run the following command:</p>
+<div class="highlight"><pre><span></span>pelican path/to/push-redux/content -o path/to/push-redux/docs -s path/to/push-redux/pelicanconf.py
+</pre></div>
+
+
+<p>If you are on a Unix machine, this is make easier by the <code>Makefile</code>. Simply run <code>make html</code>.</p>
+<blockquote>
+<p>Be sure to check the console for any errors that occured wile building the site. Ignore the following warning: "WARNING: empty slug for path/to/push-redux/content/pages/index.md. You can fix this by adding a title or a slug to your content".</p>
+</blockquote>
+<p>Now open the <code>path/to/push-redux/docs/index.html</code> file in your web browser to preview your changes.</p>
+<blockquote>
+<p>BE WARNED: As you navigate between pages, you may find yourself having to click on the <code>index.html</code> file for the folder you are in. This is normal. GitHub Pages displays the <code>index.html</code> file in the current directory by default, but your browser won't. Once your changes go live on the main repository, this will not happen anymore.</p>
+</blockquote>
+<h5>Pushing changes</h5>
+<p>After you make your changes locally, and have previewed them to ensure they look as intended, you will need to push these changes to your GitHub fork.</p>
+<p>Once your changes are have been pushed to your GitHub fork, open a pull request between your fork and the main <code>push-redux</code> repository. This can be done from the GitHub website. More information about pull requests can be found here.</p>
+<p>One the pull request has been submitted, your changes will be reviewed and (most likely) accepted. Then your changes will be visible on the Push Redux GitHub Pages site!</p>
+<h4>Modifying Existing Pages</h4>
+<p>In Pelican projects, you can find the Markdown (.md) files for every pages in the <code>path/to/push-redux/content/pages/</code> folder. Every time the Pelican site is built, the Markdown files in the <code>content/</code> and <code>content/pages/</code> folders in converted into HTML files in the <code>docs/</code> folder.</p>
+<p>To modify the text of a page, simply change the corrisponding markdown file found in the <code>content/pages/</code> folder.</p>
+<h4>Creating New Pages</h4>
+<p>When the Push Redux site is built, Pelican looks for any <code>.md</code> files in the <code>content/pages/</code> folder and converts them to HTML pages on the site. Thus, in order to make a new page on the Push Redux site, simply add a new Markdown file (with <code>.md</code> extention) in the <code>content/pages/</code> folder.</p>
+<p>At the top of the Markdown file, you must enter some metadata. The metadata for this file looks like this:</p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">How</span> <span class="n">to</span> <span class="n">Contribute</span> <span class="n">to</span> <span class="n">the</span> <span class="n">Push</span> <span class="n">Redux</span>
+</pre></div>
+
+
+<p>The <code>Title</code> value will be the title of the page. This will appear in large print at the top of the page.</p>
+<p>The <code>Slug</code> value determines the url of the </p>
+<h4>Creating New Blog Posts</h4>
+<h4>Modifying the Style</h4>
+<h4>Modifying the Theme</h4>
+<h4>Modifying the Sidebar Links</h4>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-2 columns">
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="https://push-language.hampshire.edu/">Push Discourse</a></li>
+            <li><a href="http://faculty.hampshire.edu/lspector/push.html">Push Homepage</a></li>
+            <li><a href="pages/contributing/index.html">Contribute to this site</a></li>
+        </ul>
+        
+
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="../../archives.html">Archives</a>
+            <li><a href="../../tags.html">Tags</a>
+
+
+        </ul>
+
+     
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="../../category/pushgp.html">PushGP</a></li>
+   
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Push Redux by Eddie</p>
+            </div>
+            </div>
+    </div>
+</footer>

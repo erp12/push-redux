@@ -80,10 +80,10 @@
 <li><a href="http://cs.wlu.edu/~helmuth/Pubs/2016-GECCO-hyperselection.pdf">The Impact of Hyperselection on Lexicase Selection</a></li>
 </ul>
 <h5>Epsilon Lexicase Selection</h5>
-<p>Lexicase selection generally performs poorly on problems that use continuous outpus, such as regression. Epsilon Lexicase Selection is a form of lexicase selection that allows candidates to pass a test case as long as their error is within <em>epsilon</em> ($\epsilon$) of the error of the best candidate on the test case. This change dramatically increases the performance of lexicase selection on regression problems.</p>
+<p>Lexicase selection generally performs poorly on problems that use continuous outpus, such as regression. Epsilon Lexicase Selection is a form of lexicase selection that allows candidates to pass a test case as long as their error is within <em>epsilon</em> ( $\epsilon$ ) of the error of the best candidate on the test case. This change dramatically increases the performance of lexicase selection on regression problems.</p>
 <p>For more information about Epsilon Lexicase selection, and its benefits, see the following publication:</p>
 <ul>
-<li><code>Epsilon-lexicase selection for regression &lt;http://www.williamlacava.com/pubs/GECCO_lex_reg_preprint.pdf&gt;</code>_</li>
+<li><a href="http://www.williamlacava.com/pubs/GECCO_lex_reg_preprint.pdf">Epsilon-lexicase selection for regression</a></li>
 </ul>
 <h5>Tournament Selection</h5>
 <p>Tournament selection involved selecting the individual with the lowest total error from a small, random subset of the population. This subset is called the tournament. Each time a selection event occurs, a new random subset of the population is placed into the tournament.</p>
@@ -91,9 +91,9 @@
 <h4>Mutation</h4>
 <p>Mutation operators randomly modify a single parent to create new individuals. These modifications usually invlove inserting random code, or removing random parts of the parent. </p>
 <h5>Uniform Mutation</h5>
-<p>Uniformly mutates individual. For each token in genome, there is <em>uniform_mutation_rate</em> probability of being mutated. If a token is to be mutated, it has a uniform_mutation_constant_tweak_rate probability of being mutated using a constant mutator (which varies depending on the type of the token), and otherwise is replaced with a random instruction.</p>
+<p>Uniformly mutates individual. For each token in genome, there is <code>uniform_mutation_rate</code> probability of being mutated. If a token is to be mutated, it has a <code>uniform_mutation_constant_tweak_rate</code> probability of being mutated using a constant mutator (which varies depending on the type of the token), and otherwise is replaced with a random instruction.</p>
 <h5>Uniform Close Mutation</h5>
-<p>Uniformly mutates the <em>close</em> markers in the individual's plush genes. Each <em>close</em> will have a <em>uniform_close_mutation_rate</em> probability of being changed, and those that are changed have a <em>close_increment_rate</em> chance of being incremented, and are otherwise decremented.</p>
+<p>Uniformly mutates the <code>close</code> markers in the individual's plush genes. Each <code>close</code> will have a <code>uniform_close_mutation_rate</code> probability of being changed, and those that are changed have a <code>close_increment_rate</code> chance of being incremented, and are otherwise decremented.</p>
 <p><a name="recombination"></a> </p>
 <h4>Recombination</h4>
 <p>Recombination operators typically use 2 or more parents. Unlike mutation, the resulting individual is composed entirely of parts of the parents.</p>
@@ -110,6 +110,7 @@
         <ul class="side-nav">
             <li><a href="https://push-language.hampshire.edu/">Push Discourse</a></li>
             <li><a href="http://faculty.hampshire.edu/lspector/push.html">Push Homepage</a></li>
+            <li><a href="pages/contributing/index.html">Contribute to this site</a></li>
         </ul>
         
 

@@ -26,7 +26,8 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (('Push Discourse', 'https://push-language.hampshire.edu/'),
-         ('Push Homepage', 'http://faculty.hampshire.edu/lspector/push.html'),)
+         ('Push Homepage', 'http://faculty.hampshire.edu/lspector/push.html'),
+         ('Contribute to this site', 'pages/contributing/index.html'))
 
 # Social widget
 # SOCIAL = (('You can add links in your config file', '#'),
