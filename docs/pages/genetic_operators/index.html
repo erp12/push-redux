@@ -50,18 +50,18 @@
     <h3>Evolutionary Operators</h3>
     
     <blockquote>
-<p>To learn more about Selection, Mutation, and Recombination algorithms, I would highly recomend the "Field Guide To Genetic Programming" book, which is freely shared online <a href="http://dces.essex.ac.uk/staff/rpoli/gp-field-guide/A_Field_Guide_to_Genetic_Programming.pdf">here</a>.</p>
+<p>To learn more about Selection, Mutation, and Recombination algorithms, I would highly recomend the "Field Guide To Genetic Programming" book, which is freely shared online <a href="http://dces.essex.ac.uk/staff/rpoli/gp-field-guide/A_Field_Guide_to_Genetic_Programming.pdf">here</a>. The content is not exactly the same as this page because the book is not specific to PushGP.</p>
 </blockquote>
 <p><a name="selection"></a> </p>
 <h4>Selection</h4>
-<p>A selection event refers to the points during evolution where an individual is e probabilistically chosen based on fitness. Individuals with better fitness (ie. lower error) are more likely to be chosen. The chosen individuals are typically used as "parents" in Mutaion or Recombination.</p>
+<p>A selection event refers to the points during evolution where an individual is probabilistically chosen based on fitness. Individuals with better fitness (ie. lower error) are more likely to be chosen. The chosen individuals are typically used as "parents" in Mutaion or Recombination.</p>
 <h5>Lexicase Selection</h5>
-<p>Lexicase selection is the default selection method for Pysh.</p>
+<p>Lexicase selection selects and individual from the pareto front, and tends to select individuals which have specialied at solvig some test cases.</p>
 <blockquote>
 <p>"Unlike most traditional parent selection techniques, lexicase selection does not base selection on a fitness value that is aggregated over all test cases; rather, it considers test cases one at a time in random order" 
 -- T. Helmuth, L. Spector</p>
 </blockquote>
-<p>Lexicase selection follows the following procedure:</p>
+<p>Lexicase selection follows the following procedure at <em>each</em> selection event:</p>
 <div class="highlight"><pre><span></span>1. Set CANDIDATES to be the entire population.
 2. Set CASES to be a list of all of the test CASES in random order.
 3. Loop:
@@ -80,13 +80,13 @@
 <li><a href="http://cs.wlu.edu/~helmuth/Pubs/2016-GECCO-hyperselection.pdf">The Impact of Hyperselection on Lexicase Selection</a></li>
 </ul>
 <h5>Epsilon Lexicase Selection</h5>
-<p>Lexicase selection generally performs poorly on problems that use continuous outpus, such as regression. Epsilon Lexicase Selection is a form of lexicase selection that allows candidates to pass a test case as long as their error is within <em>epsilon</em> ( $\epsilon$ ) of the error of the best candidate on the test case. This change dramatically increases the performance of lexicase selection on regression problems.</p>
+<p>Lexicase selection generally performs poorly on problems that use continuous output values, such as most regression problems. Epsilon Lexicase Selection is a form of lexicase selection that allows candidates to pass a test case as long as their error is within <em>epsilon</em> ( $\epsilon$ ) of the error of the best candidate on the test case. This change dramatically increases the performance of lexicase selection on problems with continuous output values.</p>
 <p>For more information about Epsilon Lexicase selection, and its benefits, see the following publication:</p>
 <ul>
 <li><a href="http://www.williamlacava.com/pubs/GECCO_lex_reg_preprint.pdf">Epsilon-lexicase selection for regression</a></li>
 </ul>
 <h5>Tournament Selection</h5>
-<p>Tournament selection involved selecting the individual with the lowest total error from a small, random subset of the population. This subset is called the tournament. Each time a selection event occurs, a new random subset of the population is placed into the tournament.</p>
+<p>Tournament selection involves selecting the individual with the lowest total error from a small, random subset of the population. This subset is called the tournament. Each time a selection event occurs, a new random subset of the population is placed into the tournament.</p>
 <p><a name="mutation"></a> </p>
 <h4>Mutation</h4>
 <p>Mutation operators randomly modify a single parent to create new individuals. These modifications usually invlove inserting random code, or removing random parts of the parent. </p>
@@ -98,8 +98,17 @@
 <h4>Recombination</h4>
 <p>Recombination operators typically use 2 or more parents. Unlike mutation, the resulting individual is composed entirely of parts of the parents.</p>
 <h5>Alternation</h5>
-<p>Uniformly alternates between the two parent plush genomes.</p>
-<h5>Crossover</h5>
+<p>Uniformly alternates between taking genes from either of the two parent plush genomes. </p>
+<p>Alternation traverses the parent genomes to build the child genome out of tokens taken from the parents. Traversal begins with a “read head” on the first token of the the first parent, and the copying of that token to the child. </p>
+<p>After this and each subsequent step there is a fixed probability of alternating between parents. In other words: moving the read head to approximately the same location in the other parent genome. The probability of alternating at any given step is specified as the <code>alternation rate.</code></p>
+<p>When alternating between parents, the position of the read head is subjected to Gaussian noise and may change to a higher or lower index; the standard deviation of the noise is given by the <code>alignment deviation</code> parameter. Note that alignment deviation may cause some elements of parent programs to be skipped or to be repeated in the child program.</p>
+<h5>Point Crossover</h5>
+<p>Point Crossover (sometimes called "subtree crossover") splits each parent genome into a head and tail at a randomly selected crossover point. The new child genome is created by combining the head of one parent and the tail of the other parent. This is called "One Point Crossover."</p>
+<p>"Two Point Crossover" refers to the same processes described above with 2 two crossover points.</p>
+<p>When performing evolution on linear program representations, it is possible for <strong>Alternation</strong> to perform operations synonymous with $n$-point crossover, as well as other recombinations. This is why Alternation is the most commonly used method of recombination.</p>
+<h4>Gone But Not Forgotten</h4>
+<h5>Uniform Linear Transformation with Repair and Alternation in Genetic Programming (ULTRA)</h5>
+<p><a href="http://faculty.hampshire.edu/lspector/pubs/spector-gptp-2013-preprint.pdf">PAPER</a></p>
     </div>
     <!-- End Main Content -->
 
