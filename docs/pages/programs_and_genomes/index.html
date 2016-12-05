@@ -49,15 +49,16 @@
         
     <h3>Programs and Genomes</h3>
     
-    <p><a name="push_programs"></a> </p>
+    <p>The Push language's permissive syntax was designed to allow programs themselves to be treated as genomes, for which random variation is safe. In much of the past work, Push programs themselves did serve as genomes, which would be randomly varied and recombined. More recently, a linearized representation of Push programs, called Plush, has been developed. Read more about Plush on <a href="https://push-language.hampshire.edu/t/plush-genomes/279">this post</a> found on the Push Discourse.</p>
+<p><a name="push_programs"></a> </p>
 <h4>Push Programs</h4>
-<p>Push programs are lists and nested lists of <em>instructions</em> and <em>literals</em> that are intended to be run through a Push interpreter. The push interpreter contains a stack for each data type. The state of these stacks is modified by the Push program when it is executed with the interpreter. </p>
+<p>Push programs are lists and nested lists of <em>instructions</em> and <em>literals</em> that are intended to be run through a Push interpreter. The Push interpreter contains a stack for each data type. The state of these stacks is modified by the Push program when it is executed with the interpreter. </p>
 <h5>Literals</h5>
-<p>Literals are constants (or primitive) values. Examples of literals include: the integer <code>3</code>, the string <code>"HelloWorld"</code>, the boolean <code>TRUE</code>, and the floating point number <code>3.14</code>. When literals are processed by the push interpreter, they are simply placed onto the stack corrisponding to their data type. (ie. The string <code>"HelloWorld"</code> will be pushed onto the string stack.) </p>
+<p>Literals are constants (or primitive) values. Examples of literals include: the integer <code>3</code>, the string <code>"HelloWorld"</code>, the boolean <code>TRUE</code>, and the floating point number <code>3.14</code>. When literals are processed by the Push interpreter, they are simply placed onto the stack corresponding to their data type. (ie. The string <code>"HelloWorld"</code> will be pushed onto the string stack.) </p>
 <h5>Instructions</h5>
-<p>Instructions are functions that modify the state of the stacks. They are passed the state of the stacks as the only argument. When called by the push interpreter, instructions can pop items off the stacks, perform some computation, and push the resulting values back onto the stacks. For example, the <code>integer_add</code> instruction received the state of the stacks when it is called. It then pops the top two items off the integer stack, sums them, and pushes the resulting integer back onto the integer stack.</p>
-<p>Pysh (and most Push language implementations) contain a set of instructions that attempt to cover most basic computations that should appear in programs. To read more about Pysh's built in instruction set, see :doc:<code>this page &lt;Instructions&gt;</code>. It is also possible to add more instructions to Pysh's instruction set. More information about creating new instructions can be found on the :doc:<code>Custom Instructions &lt;custom_instructions&gt;</code> page. </p>
-<p>To see an example push program being executed, step-by-step refer to the <a href="../intro_to_push/">Introduction to Push</a>.</p>
+<p>Instructions are functions that modify the state of the stacks. They are passed the state of the stacks as the only argument. When called by the Push interpreter, instructions can pop items off the stacks, perform some computation, and push the resulting values back onto the stacks. For example, the <code>integer_add</code> instruction received the state of the stacks when it is called. It then pops the top two items off the integer stack, sums them, and pushes the resulting integer back onto the integer stack.</p>
+<p>Most Push language implementations contain a set of instructions that attempt to cover most basic computations that should appear in programs. To read more about common Push instructions, see the <a href="#../instructions/index.html">instructions page</a>. </p>
+<p>To see an example push program being executed, step-by-step refer to the <a href="../intro_to_push/index.html">Introduction to Push</a>.</p>
 <p><a name="plush_genomes"></a> </p>
 <h4>Plush Genomes</h4>
 <p>Plush genomes are linear representations of Push programs. Consider the following push program:</p>
@@ -97,10 +98,7 @@
 </tbody>
 </table>
 <p>In the above table, each column represents a "gene" in the genome. </p>
-<blockquote>
-<p>In Pysh, Genes are represented as tuples. Genomes are represented as a list of gene tupels.</p>
-</blockquote>
-<p>The <strong>instruction</strong> values indicate which instructions (or literals) appear in the genome. These <em>instruction</em> values also denote if the gene should place an open parentheses in the program. When defining a new instruction the number of open parentheses is specifed, and every occurence of that instruction places the specified number of open parentheses. Literal values never place open parentheses.</p>
+<p>The <strong>instruction</strong> values indicate which instructions (or literals) appear in the genome. These <em>instruction</em> values also denote if the gene should place an open parentheses in the program. When defining a new instruction the number of open parentheses is specified, and every occurrence of that instruction places the specified number of open parentheses. Literal values never place open parentheses.</p>
 <p>The <strong>closes</strong> count and <strong>silent</strong> boolean parts of each gene are considered <strong>epigenetic markers</strong>. These are explained below.</p>
 <h5>Epigenetic Markers</h5>
 <p>Epigenetic Markers are how the nested structure of a push program is captured in the linear genome. They also have the ability to "silence" a gene.</p>
@@ -108,8 +106,8 @@
 <p>As mentioned above, each instruction denotes how many open parentheses should follow it once translated into a push program. In order for a Push program to be valid, all open parentheses must be closed. One way which a close parenthesis can be added is by incrementing a genes <code>close</code> epigenetic marker. When a genome is translated into a program, each instruction (or literal) is followed by a number of close parentheses equal to the gene's <code>close</code> value, not exceeding the number of open parentheses that have not been closed. At the end of program translation a number of close parentheses are added equal to the number of un-matched open parentheses.</p>
 <p>For example, the definition of the <code>exec_dup</code> instruction specifies that one open parenthesis should should follow it in the program. This is clearly seen in the example program above. In the genome, we see that the close count of the <code>integer_add</code> gene has been set to 1. This causes the close parenthesis that follows the <code>integer_add</code> instruction in the example program. </p>
 <h6>Silent</h6>
-<p>It is also possible for genes in a plush genome to not appear in the translated program. This occurs when the <strong>silent</strong> epigenetic marker is true. This can be used during :doc:<code>Automatic Program Simplification &lt;Simplification&gt;</code> or various genetic operator.</p>
-<p>Notice in the above genome example that the <code>exec_rot</code> gene has it's silent gene set to True and thus the <code>exec_rot</code> instruction does not appear in the program.</p>
+<p>It is also possible for genes in a plush genome to not appear in the translated program. This occurs when the <strong>silent</strong> epigenetic marker is true. This can be used during <a href="../simplification/index.html">Automatic Program Simplification</a> or various genetic operator.</p>
+<p>Notice in the above genome example that the <code>exec_rot</code> gene has it's silent marker set to True and thus the <code>exec_rot</code> instruction does not appear in the program.</p>
     </div>
     <!-- End Main Content -->
 

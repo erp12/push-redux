@@ -2,22 +2,24 @@ Title: Programs and Genomes
 Summary: Push Programs and Plush Genomes
 
 
+The Push language's permissive syntax was designed to allow programs themselves to be treated as genomes, for which random variation is safe. In much of the past work, Push programs themselves did serve as genomes, which would be randomly varied and recombined. More recently, a linearized representation of Push programs, called Plush, has been developed. Read more about Plush on [this post](https://push-language.hampshire.edu/t/plush-genomes/279) found on the Push Discourse.
+
 <a name="push_programs"></a> 
 #### Push Programs
 
-Push programs are lists and nested lists of *instructions* and *literals* that are intended to be run through a Push interpreter. The push interpreter contains a stack for each data type. The state of these stacks is modified by the Push program when it is executed with the interpreter. 
+Push programs are lists and nested lists of *instructions* and *literals* that are intended to be run through a Push interpreter. The Push interpreter contains a stack for each data type. The state of these stacks is modified by the Push program when it is executed with the interpreter. 
 
 ##### Literals
 
-Literals are constants (or primitive) values. Examples of literals include: the integer `3`, the string `"HelloWorld"`, the boolean `TRUE`, and the floating point number `3.14`. When literals are processed by the push interpreter, they are simply placed onto the stack corrisponding to their data type. (ie. The string `"HelloWorld"` will be pushed onto the string stack.) 
+Literals are constants (or primitive) values. Examples of literals include: the integer `3`, the string `"HelloWorld"`, the boolean `TRUE`, and the floating point number `3.14`. When literals are processed by the Push interpreter, they are simply placed onto the stack corresponding to their data type. (ie. The string `"HelloWorld"` will be pushed onto the string stack.) 
 
 ##### Instructions
 
-Instructions are functions that modify the state of the stacks. They are passed the state of the stacks as the only argument. When called by the push interpreter, instructions can pop items off the stacks, perform some computation, and push the resulting values back onto the stacks. For example, the `integer_add` instruction received the state of the stacks when it is called. It then pops the top two items off the integer stack, sums them, and pushes the resulting integer back onto the integer stack.
+Instructions are functions that modify the state of the stacks. They are passed the state of the stacks as the only argument. When called by the Push interpreter, instructions can pop items off the stacks, perform some computation, and push the resulting values back onto the stacks. For example, the `integer_add` instruction received the state of the stacks when it is called. It then pops the top two items off the integer stack, sums them, and pushes the resulting integer back onto the integer stack.
 
-Pysh (and most Push language implementations) contain a set of instructions that attempt to cover most basic computations that should appear in programs. To read more about Pysh's built in instruction set, see :doc:`this page <Instructions>`. It is also possible to add more instructions to Pysh's instruction set. More information about creating new instructions can be found on the :doc:`Custom Instructions <custom_instructions>` page. 
+Most Push language implementations contain a set of instructions that attempt to cover most basic computations that should appear in programs. To read more about common Push instructions, see the [instructions page](#../instructions/index.html). 
 
-To see an example push program being executed, step-by-step refer to the [Introduction to Push](../intro_to_push/).
+To see an example push program being executed, step-by-step refer to the [Introduction to Push](../intro_to_push/index.html).
 
 <a name="plush_genomes"></a> 
 #### Plush Genomes
@@ -35,9 +37,7 @@ There are many possible plush genomes that would express this program. One genom
 
 In the above table, each column represents a "gene" in the genome. 
 
->In Pysh, Genes are represented as tuples. Genomes are represented as a list of gene tupels.
-
-The **instruction** values indicate which instructions (or literals) appear in the genome. These *instruction* values also denote if the gene should place an open parentheses in the program. When defining a new instruction the number of open parentheses is specifed, and every occurence of that instruction places the specified number of open parentheses. Literal values never place open parentheses.
+The **instruction** values indicate which instructions (or literals) appear in the genome. These *instruction* values also denote if the gene should place an open parentheses in the program. When defining a new instruction the number of open parentheses is specified, and every occurrence of that instruction places the specified number of open parentheses. Literal values never place open parentheses.
 
 The **closes** count and **silent** boolean parts of each gene are considered **epigenetic markers**. These are explained below.
 
@@ -53,6 +53,6 @@ For example, the definition of the `exec_dup` instruction specifies that one ope
 
 ###### Silent
 
-It is also possible for genes in a plush genome to not appear in the translated program. This occurs when the **silent** epigenetic marker is true. This can be used during :doc:`Automatic Program Simplification <Simplification>` or various genetic operator.
+It is also possible for genes in a plush genome to not appear in the translated program. This occurs when the **silent** epigenetic marker is true. This can be used during [Automatic Program Simplification](../simplification/index.html) or various genetic operator.
 
-Notice in the above genome example that the `exec_rot` gene has it's silent gene set to True and thus the `exec_rot` instruction does not appear in the program.
+Notice in the above genome example that the `exec_rot` gene has it's silent marker set to True and thus the `exec_rot` instruction does not appear in the program.
