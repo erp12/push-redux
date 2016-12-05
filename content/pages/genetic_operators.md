@@ -3,16 +3,16 @@ Summary: A description of slection, mutation, and recombination operators typica
 
 
 
->To learn more about Selection, Mutation, and Recombination algorithms, I would highly recomend the "Field Guide To Genetic Programming" book, which is freely shared online [here](http://dces.essex.ac.uk/staff/rpoli/gp-field-guide/A_Field_Guide_to_Genetic_Programming.pdf). The content is not exactly the same as this page because the book is not specific to PushGP.
+>To learn more about Selection, Mutation, and Recombination algorithms, I would highly recommend the "Field Guide To Genetic Programming" book, which is freely shared online [here](http://dces.essex.ac.uk/staff/rpoli/gp-field-guide/A_Field_Guide_to_Genetic_Programming.pdf). The content is not exactly the same as this page because the book is not specific to PushGP.
 
 <a name="selection"></a> 
 #### Selection
 
-A selection event refers to the points during evolution where an individual is probabilistically chosen based on fitness. Individuals with better fitness (ie. lower error) are more likely to be chosen. The chosen individuals are typically used as "parents" in Mutaion or Recombination.
+A selection event refers to the points during evolution where an individual is probabilistically chosen based on fitness. Individuals with better fitness (ie. lower error) are more likely to be chosen. The chosen individuals are typically used as "parents" in Mutation or Recombination.
 
 ##### Lexicase Selection
 
-Lexicase selection selects and individual from the pareto front, and tends to select individuals which have specialied at solvig some test cases.
+Lexicase selection selects and individual from the Pareto front, and tends to select individuals which have specialized at solving some test cases.
 
 >"Unlike most traditional parent selection techniques, lexicase selection does not base selection on a fitness value that is aggregated over all test cases; rather, it considers test cases one at a time in random order" 
 >-- T. Helmuth, L. Spector
@@ -52,7 +52,7 @@ Tournament selection involves selecting the individual with the lowest total err
 <a name="mutation"></a> 
 #### Mutation
 
-Mutation operators randomly modify a single parent to create new individuals. These modifications usually invlove inserting random code, or removing random parts of the parent. 
+Mutation operators randomly modify a single parent to create new individuals. These modifications usually involve inserting random code, or removing random parts of the parent. 
 
 ##### Uniform Mutation
 
