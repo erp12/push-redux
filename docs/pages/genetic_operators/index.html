@@ -50,13 +50,13 @@
     <h3>Evolutionary Operators</h3>
     
     <blockquote>
-<p>To learn more about Selection, Mutation, and Recombination algorithms, I would highly recomend the "Field Guide To Genetic Programming" book, which is freely shared online <a href="http://dces.essex.ac.uk/staff/rpoli/gp-field-guide/A_Field_Guide_to_Genetic_Programming.pdf">here</a>. The content is not exactly the same as this page because the book is not specific to PushGP.</p>
+<p>To learn more about Selection, Mutation, and Recombination algorithms, I would highly recommend the "Field Guide To Genetic Programming" book, which is freely shared online <a href="http://dces.essex.ac.uk/staff/rpoli/gp-field-guide/A_Field_Guide_to_Genetic_Programming.pdf">here</a>. The content is not exactly the same as this page because the book is not specific to PushGP.</p>
 </blockquote>
 <p><a name="selection"></a> </p>
 <h4>Selection</h4>
-<p>A selection event refers to the points during evolution where an individual is probabilistically chosen based on fitness. Individuals with better fitness (ie. lower error) are more likely to be chosen. The chosen individuals are typically used as "parents" in Mutaion or Recombination.</p>
+<p>A selection event refers to the points during evolution where an individual is probabilistically chosen based on fitness. Individuals with better fitness (ie. lower error) are more likely to be chosen. The chosen individuals are typically used as "parents" in Mutation or Recombination.</p>
 <h5>Lexicase Selection</h5>
-<p>Lexicase selection selects and individual from the pareto front, and tends to select individuals which have specialied at solvig some test cases.</p>
+<p>Lexicase selection selects and individual from the Pareto front, and tends to select individuals which have specialized at solving some test cases.</p>
 <blockquote>
 <p>"Unlike most traditional parent selection techniques, lexicase selection does not base selection on a fitness value that is aggregated over all test cases; rather, it considers test cases one at a time in random order" 
 -- T. Helmuth, L. Spector</p>
@@ -89,7 +89,7 @@
 <p>Tournament selection involves selecting the individual with the lowest total error from a small, random subset of the population. This subset is called the tournament. Each time a selection event occurs, a new random subset of the population is placed into the tournament.</p>
 <p><a name="mutation"></a> </p>
 <h4>Mutation</h4>
-<p>Mutation operators randomly modify a single parent to create new individuals. These modifications usually invlove inserting random code, or removing random parts of the parent. </p>
+<p>Mutation operators randomly modify a single parent to create new individuals. These modifications usually involve inserting random code, or removing random parts of the parent. </p>
 <h5>Uniform Mutation</h5>
 <p>Uniformly mutates individual. For each token in genome, there is <code>uniform_mutation_rate</code> probability of being mutated. If a token is to be mutated, it has a <code>uniform_mutation_constant_tweak_rate</code> probability of being mutated using a constant mutator (which varies depending on the type of the token), and otherwise is replaced with a random instruction.</p>
 <h5>Uniform Close Mutation</h5>
