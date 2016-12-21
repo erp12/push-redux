@@ -44,7 +44,7 @@ Push is programming language that plays nice with evolutionay computing / geneti
     - [The Push Language](pages/intro_to_push/index.html#push_lang)
     - [Push Genetic Programming](pages/intro_to_push/index.html#push_gp)
 * Key Features
-    - [Instruction Set](pages/instructions/index.html)
+    - [Instructions](pages/instructions/index.html)
         + [Input Instructions](pages/input_instr/index.html)
         + [Output Insturctions](pages/output_instr/index.html)
     - [Control Structures](pages/control_structures/index.html)
