@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Input Instructions</title>
+
+    <link rel="stylesheet" href="../../theme/css/normalize.css" />
+    <link rel="stylesheet" href="../../theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="../../theme/css/style.css" />
+    <link rel="stylesheet" href="../../theme/css/pygments.css" />	
+    <script src="../../theme/js/custom.modernizr.js"></script>
+
+    <!-- So Firefox can bookmark->"abo this site" -->
+
+    <!-- PUSH REDUX CUSTOM STUFF -->
+    <!-- Enable latex -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script type="text/javascript" async
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../../theme/css/push-style.css" /> 
+
+</head>
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="../..">Push Redux</a></h1>
+    </div>
+</div>
+</div>
+</nav>
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-10 columns">
+        
+    <h3>Input Instructions</h3>
+    
+    <p>How can inputs be provided for Push programs?</p>
+<p>When Push was first being developed, the idea was that you would preload inputs onto stacks, then run your program, and then find outputs on stacks after the program terminates. This was modeled roughly on how we thought of push-down automata being used in formal language theory.</p>
+<p>However, Hampshire student Alan Robinson soon discovered, and documented in his <a href="http://faculty.hampshire.edu/lspector/robinson-div3.pdf">Division III</a> thesis, the fact that it can be more helpful to define instructions that can be called to re-push inputs on demand, possibly multiple times during the execution of a program. This seems obvious in retrospect, since the original scheme provided only one copy of each input and required a program to duplicate it and keep track of copies on stacks if the inputs would be needed in multiple parts of a program.</p>
+<p>It then became common practice to define input instructions for each problem, and each implementation of Push provided some way to do this, although the details for implementing these varied from implementation to implementation and had to be revisited for each new problem.</p>
+<h4>The Input "Stack"</h4>
+<p>The most common way to implement input instructions is by adding an additional stack to the push state, called the input stack. This stack does not behave like a stack, because values are never popped off of it. Instead, it acts as a list which stores all input values, of all types.</p>
+<p>Using this stack, we can define instructions that get (copy) values from a particular index of the input stack. This gives our push programs access to all input values.</p>
+<h4>Example</h4>
+<p>Suppose we would like to create a classifier for the famous <a href="https://archive.ics.uci.edu/ml/datasets/Iris">iris dataset</a>. We typically think of the iris dataset as having the following 4 predictors:</p>
+<ol>
+<li>Sepal Length</li>
+<li>Sepal Width</li>
+<li>Petal Length</li>
+<li>Petal Width</li>
+</ol>
+<p>If we use a PushGP framework to create our classifier, we will be attempting to evolve a <em>program</em> that takes the 4 predictors as inputs and outputs the class value.</p>
+<p>To give our programs access to the 4 input vales, we first load the input values onto the input stack. </p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td><code>Sepal_Length Sepal_Width Petal_Length Petal_Width</code></td>
+</tr>
+<tr>
+<td>Exec</td>
+<td></td>
+</tr>
+<tr>
+<td>Float</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Note that we are using the predictor names in this demonstration, but in practice the input stacks would the actual measurements of the iris being classified. Now let's consider the following program:</p>
+<p><code>(input_2 integer_from_float integer_dec)</code></p>
+<p>The initial state of the stacks would be:</p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td><code>Sepal_Length Sepal_Width Petal_Length Petal_Width</code></td>
+</tr>
+<tr>
+<td>Exec</td>
+<td><code>(input_2 integer_from_float integer_dec)</code></td>
+</tr>
+<tr>
+<td>Float</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The first instruction of the program is <code>input_2</code>, which will copy the value at index 2 on the input stack and place it on top of the exec stack.</p>
+<p>In this case, the <code>input_2</code> instruction will place the <code>Petal_Length</code> value on top of the exec stack.</p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td><code>Sepal_Length Sepal_Width Petal_Length Petal_Width</code></td>
+</tr>
+<tr>
+<td>Exec</td>
+<td><code>Petal_Length integer_from_float integer_dec</code></td>
+</tr>
+<tr>
+<td>Float</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>We can see that the next value to be processed is now <code>Petal_Length</code>, which will be a floating point literal. The push interpreter will recognize the type of <code>Petal_Length</code> and push it to the float stack. </p>
+<table>
+<thead>
+<tr>
+<th>Stack</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td><code>Sepal_Length Sepal_Width Petal_Length Petal_Width</code></td>
+</tr>
+<tr>
+<td>Exec</td>
+<td><code>integer_from_float integer_dec</code></td>
+</tr>
+<tr>
+<td>Float</td>
+<td><code>Petal_Length</code></td>
+</tr>
+</tbody>
+</table>
+<p>We can now see that we can provide and arbitrary number of inputs to our programs through this input stack. These inputs can be of any type that the push interpreter can handle. </p>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-2 columns">
+
+        <h5 class="sidebar-title">Links</h5>
+        <ul class="side-nav">
+            <li><a href="https://push-language.hampshire.edu/">Push Discourse</a></li>
+            <li><a href="http://faculty.hampshire.edu/lspector/push.html">Push Homepage</a></li>
+            <li><a href="pages/contributing/index.html">Contribute to this site</a></li>
+        </ul>
+        
+
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="../../archives.html">Archives</a>
+            <li><a href="../../tags.html">Tags</a>
+
+
+        </ul>
+
+     
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="../../category/pushgp.html">PushGP</a></li>
+   
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>Push Redux by Eddie</p>
+            </div>
+            </div>
+    </div>
+</footer>

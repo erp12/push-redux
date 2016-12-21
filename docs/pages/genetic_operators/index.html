@@ -103,7 +103,7 @@
 <p>After this and each subsequent step there is a fixed probability of alternating between parents. In other words: moving the read head to approximately the same location in the other parent genome. The probability of alternating at any given step is specified as the <code>alternation rate.</code></p>
 <p>When alternating between parents, the position of the read head is subjected to Gaussian noise and may change to a higher or lower index; the standard deviation of the noise is given by the <code>alignment deviation</code> parameter. Note that alignment deviation may cause some elements of parent programs to be skipped or to be repeated in the child program.</p>
 <h5>Point Crossover</h5>
-<p>Point Crossover (sometimes called "subtree crossover") splits each parent genome into a head and tail at a randomly selected crossover point. The new child genome is created by combining the head of one parent and the tail of the other parent. This is called "One Point Crossover."</p>
+<p>Point Crossover splits each parent genome into a head and tail at a randomly selected crossover point. The new child genome is created by combining the head of one parent and the tail of the other parent. This is called "One Point Crossover."</p>
 <p>"Two Point Crossover" refers to the same processes described above with 2 two crossover points.</p>
 <p>When performing evolution on linear program representations, it is possible for <strong>Alternation</strong> to perform operations synonymous with $n$-point crossover, as well as other recombinations. This is why Alternation is the most commonly used method of recombination.</p>
 <h4>Gone But Not Forgotten</h4>

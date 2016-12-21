@@ -79,7 +79,7 @@ When alternating between parents, the position of the read head is subjected to 
 
 ##### Point Crossover
 
-Point Crossover (sometimes called "subtree crossover") splits each parent genome into a head and tail at a randomly selected crossover point. The new child genome is created by combining the head of one parent and the tail of the other parent. This is called "One Point Crossover."
+Point Crossover splits each parent genome into a head and tail at a randomly selected crossover point. The new child genome is created by combining the head of one parent and the tail of the other parent. This is called "One Point Crossover."
 
 "Two Point Crossover" refers to the same processes described above with 2 two crossover points.
 
