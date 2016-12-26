@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../theme/css/style.css" />
     <link rel="stylesheet" href="../../theme/css/pygments.css" />	
     <script src="../../theme/js/custom.modernizr.js"></script>
+    <script src="../../theme/js/jquery.js"></script>
 
     <!-- So Firefox can bookmark->"abo this site" -->
 
@@ -26,6 +27,7 @@
     </script>
     <!-- Stylesheet -->
     <link rel="stylesheet" href="../../theme/css/push-style.css" /> 
+    <script src="../../theme/js/push_redux.js"></script>
 
 </head>
 <body>
@@ -46,16 +48,19 @@
 
     <!-- Main Blog Content -->
     <div class="large-10 columns">
-        
+	<div class="nav-path">instructions</div>        
     <h3>Input Instructions</h3>
     
     <p>How can inputs be provided for Push programs?</p>
 <p>When Push was first being developed, the idea was that you would preload inputs onto stacks, then run your program, and then find outputs on stacks after the program terminates. This was modeled roughly on how we thought of push-down automata being used in formal language theory.</p>
 <p>However, Hampshire student Alan Robinson soon discovered, and documented in his <a href="http://faculty.hampshire.edu/lspector/robinson-div3.pdf">Division III</a> thesis, the fact that it can be more helpful to define instructions that can be called to re-push inputs on demand, possibly multiple times during the execution of a program. This seems obvious in retrospect, since the original scheme provided only one copy of each input and required a program to duplicate it and keep track of copies on stacks if the inputs would be needed in multiple parts of a program.</p>
-<p>It then became common practice to define input instructions for each problem, and each implementation of Push provided some way to do this, although the details for implementing these varied from implementation to implementation and had to be revisited for each new problem.</p>
+<p>It then became common practice to define input instructions for each problem, and each implementation of Push provided some way to do this, although the details for implementing these varied from implementation to implementation and had to be revisited for each new problem. The 'input stack' was developed to provide a consistent way to do this across problems.</p>
 <h4>The Input "Stack"</h4>
-<p>The most common way to implement input instructions is by adding an additional stack to the push state, called the input stack. This stack does not behave like a stack, because values are never popped off of it. Instead, it acts as a list which stores all input values, of all types.</p>
+<p>Currently, the most common way to implement input instructions is by adding an additional stack to the push state, called the input stack. This stack does not behave like a stack, because values are never popped off of it. Instead, it acts as a list which stores all input values, of all types.</p>
 <p>Using this stack, we can define instructions that get (copy) values from a particular index of the input stack. This gives our push programs access to all input values.</p>
+<blockquote>
+<p>In Clojush, input instructions are named <code>inN</code> where <code>N</code> is a 1-based index into the input stack. In Pysh, input instructions are 0-based. Read more about the various PushGP implementations <a href="">here</a>.</p>
+</blockquote>
 <h4>Example</h4>
 <p>Suppose we would like to create a classifier for the famous <a href="https://archive.ics.uci.edu/ml/datasets/Iris">iris dataset</a>. We typically think of the iris dataset as having the following 4 predictors:</p>
 <ol>

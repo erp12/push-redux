@@ -1,4 +1,7 @@
 Title: Input Instructions
+Nav: instructions
+Summary: Short version for index and feeds
+Authors: Alexis Metaireau, Conan Doyle
 
 How can inputs be provided for Push programs?
 
@@ -6,13 +9,15 @@ When Push was first being developed, the idea was that you would preload inputs 
 
 However, Hampshire student Alan Robinson soon discovered, and documented in his [Division III](http://faculty.hampshire.edu/lspector/robinson-div3.pdf) thesis, the fact that it can be more helpful to define instructions that can be called to re-push inputs on demand, possibly multiple times during the execution of a program. This seems obvious in retrospect, since the original scheme provided only one copy of each input and required a program to duplicate it and keep track of copies on stacks if the inputs would be needed in multiple parts of a program.
 
-It then became common practice to define input instructions for each problem, and each implementation of Push provided some way to do this, although the details for implementing these varied from implementation to implementation and had to be revisited for each new problem.
+It then became common practice to define input instructions for each problem, and each implementation of Push provided some way to do this, although the details for implementing these varied from implementation to implementation and had to be revisited for each new problem. The 'input stack' was developed to provide a consistent way to do this across problems.
 
 #### The Input "Stack"
 
-The most common way to implement input instructions is by adding an additional stack to the push state, called the input stack. This stack does not behave like a stack, because values are never popped off of it. Instead, it acts as a list which stores all input values, of all types.
+Currently, the most common way to implement input instructions is by adding an additional stack to the push state, called the input stack. This stack does not behave like a stack, because values are never popped off of it. Instead, it acts as a list which stores all input values, of all types.
 
 Using this stack, we can define instructions that get (copy) values from a particular index of the input stack. This gives our push programs access to all input values.
+
+>In Clojush, input instructions are named `inN` where `N` is a 1-based index into the input stack. In Pysh, input instructions are 0-based. Read more about the various PushGP implementations [here]().
 
 #### Example
 
