@@ -32,3 +32,7 @@ For example, if a push program is executed and the resulting `output` stack look
 ```
 
 The class with the most votes would be class 4. This is because the most votes is 10.77, which appear at index 4 of the `output` stack.
+
+These class votes get added to the output stack through "voting instructions" which pull numeric values off of either the `integer` or `float` stacks and add them to a particular index of the `output` stack.
+
+Note that this system allows for real-valued votes and negative votes.
