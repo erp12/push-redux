@@ -51,7 +51,24 @@
 	<div class="nav-path">instructions</div>        
     <h3>Output Instructions</h3>
     
-    <h4>TODO: Write me!</h4>
+    <p>How can outputs be retrieved after executing Push programs?</p>
+<p>After the execution of a push program, the result is the state of all of the stacks. Often, the values that are considered the output of the program are taken from the top of these stacks.</p>
+<h4>Output Instructions</h4>
+<p>Depending on the problem, other forms of output might be required. For example, printing a particular string. Various special instructions have been written to add this functionality.</p>
+<h5>Printing Instructions</h5>
+<p>PushGP has been known to perform well on General Software Synthesis tasks compared to most other forms of GP. Many problems in this domain require that a solution return an output value, but also print various other values while the program is being executed.</p>
+<p>In most programming languages, this would be accomplished by built in functions that write to standard out. The Push language simulates this in a way that can be captured by fitness functions during evolution through the use of the <code>output</code> stack.</p>
+<p>The <code>output</code> stack initializes with only 1 element: an empty string. The Push instruction set contains <code>print</code> instructions that take items from other stacks, casts them to a string, and concatenates them to the empty string on top of the <code>output</code> stack. There is an additional <code>print</code> instruction that appends a newline character to the <code>output</code> stack string.</p>
+<p>After a Push program has been finished being executed by the push interpreter, the string on top of the <code>output</code> stack is considered the printed output of the program, as it is equal to what would have been written to standard out in conventional programming languages.</p>
+<h5>Class Voting Instructions</h5>
+<p>When using PushGP on classification problems, the goal is to evolve a program that produces a class label, <code>l</code>, such that <code>0 &lt; l &lt;= c</code> where <code>c</code> is the number of classes in the classification problem. A common way of achieving this is by using class voting instructions. </p>
+<p>As mentioned in the previous section, the bottom element of the <code>output</code> stack is a string reserved for use by the printing instructions. Elements 1 to <code>c</code> of the <code>output</code> stack each hold numeric values corresponding to the amount of "votes" given to each class. </p>
+<p>For example, if a push program is executed and the resulting <code>output</code> stack looks as follows:</p>
+<div class="highlight"><pre><span></span>[&quot;&quot;, 4.12, 0.12, -5.3, 10.77, 1.1]
+</pre></div>
+
+
+<p>The class with the most votes would be class 4. This is because the most votes is 10.77, which appear at index 4 of the <code>output</code> stack.</p>
     </div>
     <!-- End Main Content -->
 
