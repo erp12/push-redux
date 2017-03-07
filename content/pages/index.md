@@ -12,17 +12,17 @@ Push is programming language that plays nice with evolutionay computing / geneti
                 <h4>Intro To Push</h4>
             </div>
             <div class="push-redux-card-body">
-                <p >A breif introduction to the Push language and PushGP. <a href="pages/intro_to_push/">Read More.</a></p>
+                <p >A brief introduction to the Push language and PushGP. <a href="pages/intro_to_push/">Read More.</a></p>
             </div>
         </div>
     </div>
     <div class="large-4 columns">
         <div class="push-redux-card">
             <div class="push-redux-card-title">
-                <h4>Push Blog</h3>
+                <h4>Push Discourse</h3>
             </div>
             <div class="push-redux-card-body">
-                <p>News about Push and PushGP. <a href="blog_index.html">Read More.</a></p>
+                <p>All PushGP related discussion. <a href="https://push-language.hampshire.edu/">Visit Discourse.</a></p>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@ Push is programming language that plays nice with evolutionay computing / geneti
                 <h4>Push In Action</h4>
             </div>
             <div class="push-redux-card-body"> 
-                <p>Push implementations and publications. <a>Read More.</a></p>
+                <p>Push implementations and publications. <a href="http://faculty.hampshire.edu/lspector/push.html">Read More.</a></p>
             </div>
         </div>
     </div>
@@ -58,7 +58,7 @@ Push is programming language that plays nice with evolutionay computing / geneti
     - [Selection](pages/genetic_operators/index.html#selection)
     - [Mutuation](pages/genetic_operators/index.html#mutation)
     - [Recombination](pages/genetic_operators/index.html#recombination)
-* Push in Action
+* [Push in Action](http://faculty.hampshire.edu/lspector/push.html)
     - Push(GP) Implementations
     - Applications and Publications
 * [Contributing to this site](pages/contributing/index.html)

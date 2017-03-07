@@ -13,12 +13,11 @@ This document aims to explain how to contribute to the Push Redux.
     - [Pushing changes](#push_change)
 3. [Modifying Existing Pages](#modify_page)
 4. [Creating New Pages](#new_page)
-5. [Creating New Blog Posts](#new_post)
-6. [Modifying the Style](#style)
-7. [Modifying the Theme](#theme)
-8. [Modifying the Sidebar Links](#sidebar)
-9. [Tips and Tricks](#tips_and_tricks)
-    - Adding anchors to post/pages and linking to them.
+5. [Modifying the Style](#style)
+6. [Modifying the Theme](#theme)
+7. [Modifying the Sidebar Links](#sidebar)
+8. [Tips and Tricks](#tips_and_tricks)
+    - Adding anchors to pages and linking to them.
 
 <a name="background"></a> 
 #### Required Background Knowledge
@@ -61,7 +60,7 @@ publishconf.py
 
 There will likely be other files and folders in the `push-redux` repo, but won't need to talk about them in this guide.
 
-The `content/` folder contains all of the Markdown files that make up the pages and posts in the final web page.
+The `content/` folder contains all of the Markdown files that make up the pages in the final web page.
 
 The `docs/` folder is where Github Pages looks for static web pages to display when a browser goes to `erp12.github.io/push-redux/`. This means that Pelican will place the HTML/css/js/etc in the `docs/` folder when we build our static website.
 
@@ -121,31 +120,6 @@ Notice the URL of this page: `pages/contributing/index.html`. The filename of th
 
 Below the metadata (Title), you may write the content of the page.
 
-<a name="new_post"></a> 
-#### Creating New Blog Posts
-
-Creating new blog posts is very similar to creating new Pages. When the site is built, Pelican looks for any `.md` files in the `content/` folder and converts them to HTML posts on the site. Thus, in order to make a new post simply add a new Markdown file (with `.md` extension) in the `content/` folder.
-
-At the top of the Markdown file, you must enter some metadata. The metadata for a typical blog post looks like this:
-
-```
-Title: My post title
-Date: 2016-11-22 5:00 
-Modified: 2016-11-22 5:00
-Category: PushGP
-Slug: my-post-url
-Authors: Your Name
-Summary: A few sentences summarizing the post. When you browse through the blog posts, this is the text that is shown.
-```
-
-All of the above fields are strongly recommended, as they help Pelican generate the HTML for the posts in a way that looks like a non-static blog.
-
-The `Modified` date is meant to be the most recent date the post was edited. If you are adding a new post, you should use the same date as the `Date` field.
-
-Unlike pages, the URL of a post is determined by the `Slug` field.
-
-Below the metadata, you may write the content of the post.
-
 <a name="style"></a> 
 #### Modifying the Style
 
@@ -176,7 +150,7 @@ Modifying the sidebar links is done by modifying values in the `pelicanconf.py` 
 <a name="tips_and_tricks"></a> 
 #### Tips and Tricks
 
-##### Anchors in Posts/Pages
+##### Anchors in Pages
 
 Generally speaking, if you insert HTML into your Markdown files it will be preserved when the site is built. This can be used to put anchors throughout your Markdown document. This allows other pages to link directly to the location on the page which the achor is placed.
 

@@ -64,12 +64,11 @@
 </li>
 <li><a href="#modify_page">Modifying Existing Pages</a></li>
 <li><a href="#new_page">Creating New Pages</a></li>
-<li><a href="#new_post">Creating New Blog Posts</a></li>
 <li><a href="#style">Modifying the Style</a></li>
 <li><a href="#theme">Modifying the Theme</a></li>
 <li><a href="#sidebar">Modifying the Sidebar Links</a></li>
 <li><a href="#tips_and_tricks">Tips and Tricks</a><ul>
-<li>Adding anchors to post/pages and linking to them.</li>
+<li>Adding anchors to pages and linking to them.</li>
 </ul>
 </li>
 </ol>
@@ -105,7 +104,7 @@ publishconf.py
 
 
 <p>There will likely be other files and folders in the <code>push-redux</code> repo, but won't need to talk about them in this guide.</p>
-<p>The <code>content/</code> folder contains all of the Markdown files that make up the pages and posts in the final web page.</p>
+<p>The <code>content/</code> folder contains all of the Markdown files that make up the pages in the final web page.</p>
 <p>The <code>docs/</code> folder is where Github Pages looks for static web pages to display when a browser goes to <code>erp12.github.io/push-redux/</code>. This means that Pelican will place the HTML/css/js/etc in the <code>docs/</code> folder when we build our static website.</p>
 <p>The <code>themes/</code> folder contains folders of themes that determine the layout and style of the Push Redux website. Pelican uses the <a href="http://jinja.pocoo.org/">Jinja</a> template-ing engine to create themes. Modifying the contents of the <code>themes/</code> folder will only be necessary if you intend to modify the sites layout and style. </p>
 <p><code>pelicanconf.py</code> and <code>publishconf.py</code> are python modules. They behave like simple settings files with Python syntax. These files will likely be the only Python coding required to contribute to the Push Redux, and it is very unlikely any modifications to these files will be needed.</p>
@@ -145,24 +144,6 @@ publishconf.py
 <p>The <code>Title</code> value will be the title of the page. This will appear in large print at the top of the page. The <code>Title</code> value is the only metadata value that is <em>required</em> for pages. There are <a href="http://docs.getpelican.com/en/3.6.3/content.html#file-metadata">more metadata values that could be set</a>, but they will have no visible effect.</p>
 <p>Notice the URL of this page: <code>pages/contributing/index.html</code>. The filename of the Markdown file this page was generated from is named <code>contributing.md</code>. When you create your Markdown file, be sure to give it a name that is 1) not the same as any other page and 2) the path you would like Pelican to place your page on.</p>
 <p>Below the metadata (Title), you may write the content of the page.</p>
-<p><a name="new_post"></a> </p>
-<h4>Creating New Blog Posts</h4>
-<p>Creating new blog posts is very similar to creating new Pages. When the site is built, Pelican looks for any <code>.md</code> files in the <code>content/</code> folder and converts them to HTML posts on the site. Thus, in order to make a new post simply add a new Markdown file (with <code>.md</code> extension) in the <code>content/</code> folder.</p>
-<p>At the top of the Markdown file, you must enter some metadata. The metadata for a typical blog post looks like this:</p>
-<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">My</span> <span class="n">post</span> <span class="n">title</span>
-<span class="n">Date</span><span class="o">:</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">22</span> <span class="mi">5</span><span class="o">:</span><span class="mi">00</span> 
-<span class="n">Modified</span><span class="o">:</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">22</span> <span class="mi">5</span><span class="o">:</span><span class="mi">00</span>
-<span class="n">Category</span><span class="o">:</span> <span class="n">PushGP</span>
-<span class="n">Slug</span><span class="o">:</span> <span class="n">my</span><span class="o">-</span><span class="n">post</span><span class="o">-</span><span class="n">url</span>
-<span class="n">Authors</span><span class="o">:</span> <span class="n">Your</span> <span class="n">Name</span>
-<span class="n">Summary</span><span class="o">:</span> <span class="n">A</span> <span class="n">few</span> <span class="n">sentences</span> <span class="n">summarizing</span> <span class="n">the</span> <span class="n">post</span><span class="o">.</span> <span class="n">When</span> <span class="n">you</span> <span class="n">browse</span> <span class="n">through</span> <span class="n">the</span> <span class="n">blog</span> <span class="n">posts</span><span class="o">,</span> <span class="k">this</span> <span class="k">is</span> <span class="n">the</span> <span class="n">text</span> <span class="n">that</span> <span class="k">is</span> <span class="n">shown</span><span class="o">.</span>
-</pre></div>
-
-
-<p>All of the above fields are strongly recommended, as they help Pelican generate the HTML for the posts in a way that looks like a non-static blog.</p>
-<p>The <code>Modified</code> date is meant to be the most recent date the post was edited. If you are adding a new post, you should use the same date as the <code>Date</code> field.</p>
-<p>Unlike pages, the URL of a post is determined by the <code>Slug</code> field.</p>
-<p>Below the metadata, you may write the content of the post.</p>
 <p><a name="style"></a> </p>
 <h4>Modifying the Style</h4>
 <p>The style of the Push Redux site is determined by the style-sheets included in the theme. The Push Redux site uses the theme found in the <code>themes/push-redux-theme/</code> folder. This theme is modified version of the theme found in the <code>themes/tuxlite_zf/</code> folder.</p>
@@ -180,7 +161,7 @@ publishconf.py
 <p>Modifying the sidebar links is done by modifying values in the <code>pelicanconf.py</code> file. In the <code>pelicanconf.py</code> file, there is a variable called <code>LINKS</code> which is defined as nested tuples. Each tuple consists of 1) the text that should appear in the sidebar and 2) the URL which the link should point to. Modify the <code>LINKS</code> tuple to change and rebuild the site to change the sidebar links.</p>
 <p><a name="tips_and_tricks"></a> </p>
 <h4>Tips and Tricks</h4>
-<h5>Anchors in Posts/Pages</h5>
+<h5>Anchors in Pages</h5>
 <p>Generally speaking, if you insert HTML into your Markdown files it will be preserved when the site is built. This can be used to put anchors throughout your Markdown document. This allows other pages to link directly to the location on the page which the achor is placed.</p>
 <p>For example, in the Markdown file that creates this page the <strong>Tips and Tricks</strong> section looks like this:</p>
 <div class="highlight"><pre><span></span><span class="nt">&lt;a</span> <span class="na">name=</span><span class="s">&quot;tips_and_tricks&quot;</span><span class="nt">&gt;&lt;/a&gt;</span> 
@@ -226,12 +207,6 @@ publishconf.py
 
         </ul>
 
-     
-        <h5 class="sidebar-title">Categories</h5>
-        <ul class="side-nav">
-            <li><a href="../../category/pushgp.html">PushGP</a></li>
-   
-        </ul>
 
     </aside> <!-- End Sidebar -->
 
