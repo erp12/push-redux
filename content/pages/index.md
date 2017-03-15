@@ -62,5 +62,9 @@ Push is programming language that plays nice with evolutionay computing / geneti
     - Push(GP) Implementations
     - Applications and Publications
 * [Contributing to this site](pages/contributing/index.html)
-
+    - ToDo: Core Push instruction set.
+    - ToDo: Control structures page.
+    - ToDo: Program simplification page.
+    - ToDo: Autoconstruction page (or link to discourse)
+    - ToDO: Page pointing to Push implementations.
 
