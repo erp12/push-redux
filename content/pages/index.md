@@ -1,7 +1,5 @@
 Title: Welcome
-URL: .
 save_as: index.html
-
 
 Push is programming language that plays nice with evolutionay computing / genetic programming. It is a stack-based language that features 1 stack per data type, including code. Programs are represented by lists of instructions, which modify the values on the stacks. Instuctions are executed in order.
 
@@ -62,9 +60,9 @@ Push is programming language that plays nice with evolutionay computing / geneti
     - Push(GP) Implementations
     - Applications and Publications
 * [Contributing to this site](pages/contributing/index.html)
-    - ToDo: Core Push instruction set.
-    - ToDo: Control structures page.
-    - ToDo: Program simplification page.
-    - ToDo: Autoconstruction page (or link to discourse)
-    - ToDO: Page pointing to Push implementations.
+    - To Do: Core Push instruction set.
+    - To Do: Control structures page.
+    - To Do: Program simplification page.
+    - To Do: Autoconstruction page (or link to discourse)
+    - To Do: Page pointing to Push implementations.
 

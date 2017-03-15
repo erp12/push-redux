@@ -1,4 +1,9 @@
 $( document ).ready(function() {
+
+	if (document.title = "Welcome") {
+		return
+	}
+
     pages = $( 'div.nav-path').html().split(',');
     console.log(pages)
     $( 'div.nav-path').html('<a href="../../index.html">Home</a>');
