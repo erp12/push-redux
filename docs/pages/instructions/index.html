@@ -65,7 +65,408 @@
 
 <p>Notice that nothing happens to the <code>state</code> if there are insufficient arguements to the instruction.</p>
 <h4>Typical Push Instruction Set</h4>
-<p>TODO: Write me!</p>
+<p>The following sections describe some of the commonly used Push instructions categorized according to the type of stacks they modify. The columns <em>Input</em> and <em>Output</em> specify the type of stacks to take input from or put the output onto.</p>
+<h5>Boolean</h5>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Operation</th>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>boolean_and</code></td>
+<td>logical AND of top two items</td>
+<td><code>:boolean</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_or</code></td>
+<td>logical OR of top two items</td>
+<td><code>:boolean</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_not</code></td>
+<td>logical NOT of top item</td>
+<td><code>:boolean</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_xor</code></td>
+<td>logical XOR of top two items</td>
+<td><code>:boolean</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_invert_first_then_and</code></td>
+<td>logical AND of the second item with the logical NOT of the first item</td>
+<td><code>:boolean</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_invert_second_then_and</code></td>
+<td>logical AND of the first item with the logical NOT of the second item</td>
+<td><code>:boolean</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_frominteger</code></td>
+<td>Pushes FALSE if the top item is 0, or TRUE otherwise</td>
+<td><code>:integer</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_fromfloat</code></td>
+<td>Pushes FALSE if the top item is 0, or TRUE otherwise</td>
+<td><code>:float</code></td>
+<td><code>:boolean</code></td>
+</tr>
+</tbody>
+</table>
+<h5>Numbers</h5>
+<p>Here, <code>:number</code> has been used as a general type for numbers : floats and integers.</p>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Operation</th>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>number_add</code></td>
+<td>sum of the top two items</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_sub</code></td>
+<td>first item subtracted from second item</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_mult</code></td>
+<td>product of the top two items</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_div</code></td>
+<td>second item divided by first item</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_mod</code></td>
+<td>modulus of the top two items</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_fromboolean</code></td>
+<td>converts FALSE to 0 or 0.0, TRUE to 1 or 1.0</td>
+<td><code>:boolean</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_fromstring</code></td>
+<td>string to number conversion</td>
+<td><code>:string</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_inc</code></td>
+<td>increment the top item by 1</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_dec</code></td>
+<td>decrement the top item by 1</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+</tbody>
+</table>
+<h5>String</h5>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Operation</th>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>string_concat</code></td>
+<td>concatenate top two strings</td>
+<td><code>:string</code></td>
+<td><code>:string</code></td>
+</tr>
+<tr>
+<td><code>string_take</code></td>
+<td>take the first n chars in the top string, where n is the top integer</td>
+<td><code>:string</code>, <code>:integer</code></td>
+<td><code>string</code></td>
+</tr>
+<tr>
+<td><code>string_conjchar</code></td>
+<td>concatenate the top char onto the top string</td>
+<td><code>:string,</code>:char<code>|</code>:string`</td>
+<td></td>
+</tr>
+<tr>
+<td><code>string_length</code></td>
+<td>length of the top string</td>
+<td><code>:string</code></td>
+<td><code>:integer</code></td>
+</tr>
+<tr>
+<td><code>string_reverse</code></td>
+<td>reverse the string</td>
+<td><code>:string</code></td>
+<td><code>:string</code></td>
+</tr>
+<tr>
+<td><code>string_parse_to_chars</code></td>
+<td>parse string to a set of strings which have only one char</td>
+<td><code>:string</code></td>
+<td><code>:string</code></td>
+</tr>
+<tr>
+<td><code>string_contains</code></td>
+<td>check whether the top string is a substring of second string</td>
+<td><code>:string</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>string_replace</code></td>
+<td>In third string replaces all occurences of second string with first string</td>
+<td><code>:string</code></td>
+<td><code>:string</code></td>
+</tr>
+<tr>
+<td><code>string_setchar</code></td>
+<td>Returns a function that sets char at index in string</td>
+<td><code>:string</code>, <code>:char</code>, <code>"integer</code></td>
+<td><code>:string</code></td>
+</tr>
+</tbody>
+</table>
+<h5>Code</h5>
+<p>Following are the instructions for <code>:code</code> and <code>:exec</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Operation</th>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code_append</code></td>
+<td>concatenate the first 2 items</td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_atom</code></td>
+<td>if the first item is sequence, push FALSE, otherwise TRUE</td>
+<td><code>:code</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>code_car</code></td>
+<td>push the first element of the top sequence</td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_cdr</code></td>
+<td>push the top sequence excluding the first element</td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_cons</code></td>
+<td>Concatenate the second item of <code>:code</code> into the first one</td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_do</code></td>
+<td>execute the top item (pop after execution)</td>
+<td><code>:code</code></td>
+<td><code>:exec</code></td>
+</tr>
+<tr>
+<td><code>code_do*</code></td>
+<td>execute the top item (pop before execution)</td>
+<td><code>:code</code></td>
+<td><code>:exec</code></td>
+</tr>
+<tr>
+<td><code>code_do*range</code></td>
+<td>while the counter moves from the second item of <code>:integer</code> to the first item of <code>:integer</code> by 1 (+ or -), keep executing the first item of <code>:code</code></td>
+<td><code>:code</code></td>
+<td><code>:exec</code></td>
+</tr>
+<tr>
+<td><code>exec_do*range</code></td>
+<td>similar to <code>code_do*range</code> but the source is from <code>:exec</code></td>
+<td><code>:exec</code></td>
+<td><code>:exec</code></td>
+</tr>
+<tr>
+<td><code>code_do*count</code></td>
+<td>Execute the first item of <code>:code</code> for (the first item of <code>:integer</code>) times</td>
+<td><code>:code</code></td>
+<td><code>:exec</code></td>
+</tr>
+<tr>
+<td><code>exec_do*count</code></td>
+<td>similar to <code>code_do*count</code> but the source if from <code>:exec</code></td>
+<td><code>:exec</code></td>
+<td><code>:exec</code></td>
+</tr>
+<tr>
+<td><code>code_wrap</code></td>
+<td>Wrap up the first item of <code>:code</code> with <code>(list )</code></td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_list</code></td>
+<td>List the first two items of <code>:code</code></td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_length</code></td>
+<td>Get the length of the first item of <code>:code</code></td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_map</code></td>
+<td>Maps the first item of <code>:code</code> and the first item in <code>:exec</code></td>
+<td><code>:code</code>, <code>:exec</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_member</code></td>
+<td>Whether the second item in <code>:code</code> belongs to the first item of <code>:code</code> or not</td>
+<td><code>:code</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>code_nth</code></td>
+<td>Get the nth (mod the length of code) from a piece of code</td>
+<td><code>:code</code>, <code>:integer</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_nthcdr</code></td>
+<td>Delete all instructions before the nth (mod the length of code)</td>
+<td><code>:code</code>, <code>:integer</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_null</code></td>
+<td>Determine whether the first item in <code>:code</code> is an empty sequence or not</td>
+<td><code>:code</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>code_extract</code></td>
+<td>Use <code>code-at-a-point</code> to return a subtree of the first item from <code>:code</code></td>
+<td><code>:code</code>, <code>:integer</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_insert</code></td>
+<td>Insert a piece of code into another by <code>insert-code-at-a-point</code></td>
+<td><code>:code</code>, <code>:integer</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_subst</code></td>
+<td>To name the first, second and third items from <code>:code</code> 1, 2 and 3. Replace all 3 in 1 with 2.</td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_contains</code></td>
+<td>Exam whether the second code item contains the first one as its subtree or not</td>
+<td><code>:code</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>code_containing</code></td>
+<td>Returns the smallest subtree of the first item which contains the second item.</td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_position</code></td>
+<td>Get the position in which the second code item appears in the first one. -1 if no appearance is found.</td>
+<td><code>:code</code></td>
+<td><code>:integer</code></td>
+</tr>
+</tbody>
+</table>
+<p>This page introduces instructions for <code>:code</code> and <code>:exec</code>.</p>
+<p>== <code>codemaker</code>
+Codemaker pops an item from a specific stack and push it into the code stack. Codemaker is a high level function which is used to construct push instructions <code>code_fromboolean</code>, <code>code_fromfloat</code>, <code>code_frominteger</code> and <code>code-quote</code>, which moves an item from <code>:exec</code> to <code>:code</code>.</p>
+<p>== Stack manipulations
+[options="header"]
+|====
+|Instruction |Explanation |input |output
+|<code>code_append</code> |Append the first 2 items in <code>:code</code> |<code>:code</code> |<code>:code</code>
+|<code>code_atom</code> |If the first item in <code>:code</code> is a sequence -&gt; false, otherwise true |<code>:code</code> |<code>:boolean</code>
+|<code>code_car</code> |Perform <code>first</code> on the first item of <code>:code</code> |<code>:code</code> |<code>:code</code>
+|<code>code_cdr</code> |Perform <code>rest</code> on the first item of <code>:code</code> |<code>:code</code> |<code>:code</code>
+|<code>code_cons</code> |Concatenate the second item of <code>:code</code> into the first one |<code>:code</code> |<code>:code</code>
+|<code>code_wrap</code> |Wrap up the first item of <code>:code</code> with <code>(list )</code> |<code>:code</code> |<code>:code</code>
+|<code>code_list</code> |List the first two items of <code>:code</code> |<code>:code</code> |<code>:code</code>
+|<code>code_length</code> |Get the length of the first item of <code>:code</code> |<code>:code</code> |<code>:code</code>
+|<code>code_map</code> |Maps the first item of <code>:code</code> and the first item in <code>:exec</code> |<code>:code</code>, <code>:exec</code> |<code>:code</code>
+|<code>code_member</code> |Whether the second item in <code>:code</code> belongs to the first item of <code>:code</code> or not |<code>:code</code> |<code>:boolean</code>
+|<code>code_nth</code> |Get the nth (mod the length of code) from a piece of code |<code>:code</code>, <code>:integer</code> |<code>:code</code>
+|<code>code_nthcdr</code> |Delete all instructions before the nth (mod the length of code) |<code>:code</code>, <code>:integer</code> |<code>:code</code>
+|<code>code_null</code> |Determine whether the first item in <code>:code</code> is an empty sequence or not |<code>:code</code> |<code>:boolean</code>
+|<code>code_extract</code> |Use <code>code-at-a-point</code> to return a subtree of the first item from <code>:code</code> |<code>:code</code>, <code>:integer</code> |<code>:code</code>
+|<code>code_insert</code> |Insert a piece of code into another by <code>insert-code-at-a-point</code> |<code>:code</code>, <code>:integer</code> |<code>:code</code>
+|<code>code_subst</code> |To name the first, second and third items from <code>:code</code> 1, 2 and 3. Replace all 3 in 1 with 2. |<code>:code</code> |<code>:code</code>
+|<code>code_contains</code> |Exam whether the second code item contains the first one as its subtree or not |<code>:code</code> |<code>:boolean</code>
+|<code>code_containing</code> |Returns the smallest subtree of the first item which contains the second item. |<code>:code</code> |<code>:code</code>
+|<code>code_position</code> |Get the position in which the second code item appears in the first one. -1 if no appearance is found. |<code>:code</code> |<code>:integer</code>
+|====</p>
+<p>== Execute codes</p>
+<p>[options="header"]
+|====
+|instruction |explanation
+|<code>code_do</code> |execute the code (by pushing both it and code_popper to <code>:exec</code>)
+|<code>code_do*</code> |execute the code (by popping it and pushing to <code>:exec</code>)
+|<code>code_do*range</code> |While the counter moves from the second item of <code>:integer</code> to the first item of <code>:integer</code> by 1 (+ or -), keep executing the first item of <code>:code</code>
+|<code>exec_do*range</code> |similar to <code>code_do*range</code> but the source is from <code>:exec</code>
+|<code>code_do*count</code> |Execute the first item of <code>:code</code> for (the first item of <code>:integer</code>) times
+|<code>exec_do*count</code> |similar to <code>code_do*count</code> but the source if from <code>:exec</code>
+|<code>code_if</code> |If the first item in <code>:boolean</code> is true, run the second item of <code>:code</code>, otherwise run the first one
+|<code>exec_if</code> |true  -&gt; run the fist one from <code>:exec</code>, false -&gt; run the second one
+|<code>exec_when</code> |first item from <code>:boolean</code> is true -&gt; pop <code>:boolean</code>, otherwise pop both <code>:boolean</code> and <code>:exec</code>. To understand: if true, it would be executed later at some point.
+|====</p>
     </div>
     <!-- End Main Content -->
 
