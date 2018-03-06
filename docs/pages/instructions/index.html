@@ -52,7 +52,7 @@
     <h3>Push Instructions</h3>
     
     <h4>What are Push Instructions?</h4>
-<p>An instruction is a function that has access to the items on the stacks, and can push its result on to any of the stacks.</p>
+<p>An instruction is a function that has access to the items on the stacks, and can push its result onto any of the stacks.</p>
 <p>Consider this python implementaion of the <code>integer_add</code> instruction.</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">integer_add</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">integer</span> <span class="n">stack</span> <span class="n">of</span> <span class="n">state</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -63,9 +63,369 @@
 </pre></div>
 
 
-<p>Notice that nothing happens to the <code>state</code> if there are insufficient arguements to the instruction.</p>
+<p>Notice that nothing happens to the <code>state</code> if there are insufficient arguments to the instruction.</p>
 <h4>Typical Push Instruction Set</h4>
-<p>TODO: Write me!</p>
+<p>The following sections describe some of the commonly used Push instructions categorized according to the type of stacks they modify. The names of the instructions may be different for different implmentations of Push. The columns <em>Input</em> and <em>Output</em> specify the type of stacks to take input from and put the output onto. </p>
+<h5>Boolean</h5>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Operation</th>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>boolean_and</code></td>
+<td>logical AND of top two items</td>
+<td><code>:boolean</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_or</code></td>
+<td>logical OR of top two items</td>
+<td><code>:boolean</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_not</code></td>
+<td>logical NOT of top item</td>
+<td><code>:boolean</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_xor</code></td>
+<td>logical XOR of top two items</td>
+<td><code>:boolean</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_invert_first_then_and</code></td>
+<td>logical AND of the second item with the logical NOT of the first item</td>
+<td><code>:boolean</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_invert_second_then_and</code></td>
+<td>logical AND of the first item with the logical NOT of the second item</td>
+<td><code>:boolean</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_frominteger</code></td>
+<td>Pushes FALSE if the top item is 0, or TRUE otherwise</td>
+<td><code>:integer</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>boolean_fromfloat</code></td>
+<td>Pushes FALSE if the top item is 0, or TRUE otherwise</td>
+<td><code>:float</code></td>
+<td><code>:boolean</code></td>
+</tr>
+</tbody>
+</table>
+<h5>Numbers</h5>
+<p>Here, the <code>:number</code> keyword has been used as a generic type that can describe floats or integers.</p>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Operation</th>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>number_add</code></td>
+<td>sum of the top two items</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_sub</code></td>
+<td>first item subtracted from second item</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_mult</code></td>
+<td>product of the top two items</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_div</code></td>
+<td>second item divided by first item</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_mod</code></td>
+<td>modulus of the top two items</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_fromboolean</code></td>
+<td>convert FALSE to 0 or 0.0, TRUE to 1 or 1.0</td>
+<td><code>:boolean</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_fromstring</code></td>
+<td>string to number conversion</td>
+<td><code>:string</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_inc</code></td>
+<td>increment the top item by 1</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+<tr>
+<td><code>number_dec</code></td>
+<td>decrement the top item by 1</td>
+<td><code>:number</code></td>
+<td><code>:number</code></td>
+</tr>
+</tbody>
+</table>
+<h5>String</h5>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Operation</th>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>string_concat</code></td>
+<td>concatenate top two strings</td>
+<td><code>:string</code></td>
+<td><code>:string</code></td>
+</tr>
+<tr>
+<td><code>string_take</code></td>
+<td>take the first n chars in the top string, where n is the top integer</td>
+<td><code>:string</code>, <code>:integer</code></td>
+<td><code>string</code></td>
+</tr>
+<tr>
+<td><code>string_conjchar</code></td>
+<td>concatenate the top char onto the top string</td>
+<td><code>:string</code>,<code>:char</code></td>
+<td><code>:string</code></td>
+</tr>
+<tr>
+<td><code>string_length</code></td>
+<td>length of the top string</td>
+<td><code>:string</code></td>
+<td><code>:integer</code></td>
+</tr>
+<tr>
+<td><code>string_reverse</code></td>
+<td>reverse the string</td>
+<td><code>:string</code></td>
+<td><code>:string</code></td>
+</tr>
+<tr>
+<td><code>string_parse_to_chars</code></td>
+<td>parse string to a set of strings which have only one char</td>
+<td><code>:string</code></td>
+<td><code>:string</code></td>
+</tr>
+<tr>
+<td><code>string_contains</code></td>
+<td>check whether the top string is a substring of second string</td>
+<td><code>:string</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>string_replace</code></td>
+<td>in third string, replace all occurences of second string with first string</td>
+<td><code>:string</code></td>
+<td><code>:string</code></td>
+</tr>
+<tr>
+<td><code>string_setchar</code></td>
+<td>set char at index in string</td>
+<td><code>:string</code>, <code>:char</code>, <code>:integer</code></td>
+<td><code>:string</code></td>
+</tr>
+</tbody>
+</table>
+<h5>Code</h5>
+<p>Following are the instructions for <code>:code</code> and <code>:exec</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Operation</th>
+<th>Input</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>code_append</code></td>
+<td>concatenate the first 2 items</td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_atom</code></td>
+<td>if the first item is sequence, push FALSE, otherwise TRUE</td>
+<td><code>:code</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>code_car</code></td>
+<td>push the first element of the top sequence</td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_cdr</code></td>
+<td>push the top sequence excluding the first element</td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_cons</code></td>
+<td>concatenate the second item of <code>:code</code> into the first one</td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_do</code></td>
+<td>execute the top item (pop after execution)</td>
+<td><code>:code</code></td>
+<td><code>:exec</code></td>
+</tr>
+<tr>
+<td><code>code_do*</code></td>
+<td>execute the top item (pop before execution)</td>
+<td><code>:code</code></td>
+<td><code>:exec</code></td>
+</tr>
+<tr>
+<td><code>code_do*range</code></td>
+<td>while the counter moves from the second item of <code>:integer</code> to the first item of <code>:integer</code> by 1 (+ or -), keep executing the first item of <code>:code</code></td>
+<td><code>:code</code></td>
+<td><code>:exec</code></td>
+</tr>
+<tr>
+<td><code>exec_do*range</code></td>
+<td>similar to <code>code_do*range</code> but the source is from <code>:exec</code></td>
+<td><code>:exec</code></td>
+<td><code>:exec</code></td>
+</tr>
+<tr>
+<td><code>code_do*count</code></td>
+<td>execute the first item of <code>:code</code> for (the first item of <code>:integer</code>) times</td>
+<td><code>:code</code></td>
+<td><code>:exec</code></td>
+</tr>
+<tr>
+<td><code>exec_do*count</code></td>
+<td>similar to <code>code_do*count</code> but the source if from <code>:exec</code></td>
+<td><code>:exec</code></td>
+<td><code>:exec</code></td>
+</tr>
+<tr>
+<td><code>code_wrap</code></td>
+<td>wrap up the first item of <code>:code</code> with <code>(list )</code></td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_list</code></td>
+<td>list the first two items of <code>:code</code></td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_length</code></td>
+<td>get the length of the first item of <code>:code</code></td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_map</code></td>
+<td>maps the first item of <code>:code</code> and the first item in <code>:exec</code></td>
+<td><code>:code</code>, <code>:exec</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_member</code></td>
+<td>whether the second item in <code>:code</code> belongs to the first item of <code>:code</code> or not</td>
+<td><code>:code</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>code_nth</code></td>
+<td>get the nth (mod the length of code) from a piece of code</td>
+<td><code>:code</code>, <code>:integer</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_nthcdr</code></td>
+<td>delete all instructions before the nth (mod the length of code)</td>
+<td><code>:code</code>, <code>:integer</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_null</code></td>
+<td>determine whether the first item in <code>:code</code> is an empty sequence or not</td>
+<td><code>:code</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>code_extract</code></td>
+<td>use <code>code-at-a-point</code> to return a subtree of the first item from <code>:code</code></td>
+<td><code>:code</code>, <code>:integer</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_insert</code></td>
+<td>insert a piece of code into another by <code>insert-code-at-a-point</code></td>
+<td><code>:code</code>, <code>:integer</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_subst</code></td>
+<td>to name the first, second and third items from <code>:code</code> 1, 2 and 3. Replace all 3 in 1 with 2.</td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_contains</code></td>
+<td>exam whether the second code item contains the first one as its subtree or not</td>
+<td><code>:code</code></td>
+<td><code>:boolean</code></td>
+</tr>
+<tr>
+<td><code>code_containing</code></td>
+<td>returns the smallest subtree of the first item which contains the second item.</td>
+<td><code>:code</code></td>
+<td><code>:code</code></td>
+</tr>
+<tr>
+<td><code>code_position</code></td>
+<td>get the position in which the second code item appears in the first one. -1 if no appearance is found.</td>
+<td><code>:code</code></td>
+<td><code>:integer</code></td>
+</tr>
+</tbody>
+</table>
     </div>
     <!-- End Main Content -->
 
