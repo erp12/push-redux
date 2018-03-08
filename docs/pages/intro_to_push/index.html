@@ -51,7 +51,7 @@
 	<div class="nav-path"></div>        
     <h3>Introduction To Push</h3>
     
-    <p><a name="push_lang"></a> </p>
+    <p><a name="push_lang"></a></p>
 <h4>The Push Language</h4>
 <p>The following paragraph has been taken from the Push language <a href="http://faculty.hampshire.edu/lspector/push.html">homepage</a>:</p>
 <blockquote>
@@ -131,7 +131,7 @@
 </tr>
 </tbody>
 </table>
-<p>For the next step in the program execution, the item that is now on top of the exec stack is another literal. This time it is a string. </p>
+<p>For the next step in the program execution, the item that is now on top of the exec stack is another literal. This time it is a string.</p>
 <table>
 <thead>
 <tr>
@@ -174,11 +174,11 @@
 </tr>
 <tr>
 <td>String</td>
-<td>"5" 10"</td>
+<td>"5" "10"</td>
 </tr>
 </tbody>
 </table>
-<p>The next item on the exec stack is the <code>exec_dup</code> instruction. This instruction demonstrates the expressiveness of the Push language. Push programs continue to run until the exec stack is empty. Push instructions have the ability to modify the stacks, including the exec stack. This makes it trivial to create instructions that implement various forms of conditionals, modularity, and code reuse. The <code>exec_dup</code> instruction is one of the simplest forms of code reuse. It pushes a copy of the next item on the exec stack to the exec stack. </p>
+<p>The next item on the exec stack is the <code>exec_dup</code> instruction. This instruction demonstrates the expressiveness of the Push language. Push programs continue to run until the exec stack is empty. Push instructions have the ability to modify the stacks, including the exec stack. This makes it trivial to create instructions that implement various forms of conditionals, modularity, and code reuse. The <code>exec_dup</code> instruction is one of the simplest forms of code reuse. It pushes a copy of the next item on the exec stack to the exec stack.</p>
 <table>
 <thead>
 <tr>
@@ -197,7 +197,7 @@
 </tr>
 <tr>
 <td>String</td>
-<td>"5" 10"</td>
+<td>"5" "10"</td>
 </tr>
 </tbody>
 </table>
@@ -221,7 +221,7 @@
 </tr>
 <tr>
 <td>String</td>
-<td>"5" 10"</td>
+<td>"5" "10"</td>
 </tr>
 </tbody>
 </table>
@@ -343,7 +343,7 @@
 </tbody>
 </table>
 <p>The above state is the output of the push program. The remaining items on the stacks can be utilized as needed.</p>
-<p><a name="push_gp"></a> </p>
+<p><a name="push_gp"></a></p>
 <h4>Push Genetic Programming</h4>
 <p>The following paragraph has been taken from the Push language <a href="http://faculty.hampshire.edu/lspector/push.html">homepage</a>.</p>
 <blockquote>
@@ -360,7 +360,7 @@
 <p>When generating random genomes, PushGP relies on <strong>atom generators</strong> and <strong>epigenetic markers</strong>.</p>
 <p>An "atom" refers to either an instruction or a literal. <strong>Atom generators</strong> are things that produce an "atom". For example, an anonymous function that returns a random floating point value between 0 and 1 could be an <strong>atom generator</strong>. At the time of random program generation (but NOT program execution) this anonymous function could be used to generate a literal in the program. An instruction can also be considered an <strong>atom generator</strong> that adds itself to the random program.</p>
 <p>When generating a random genome, PushGP selects <strong>atom generators</strong> at random. If the atom generator is a constant, it is added to the genome. If the atom generator is an anonymous function, it is called and its response if added to the genome. If the atom generator is an instruction, it is added to the genome.</p>
-<p><strong>Epigenetic Markers</strong> are how the nested structure of a push program is captured in the linear genome. They are extra values associated with each gene that denotes if the gene places an parenthesis in the program, and/or if the gene is silent. <strong>Epigenetic Markers</strong> are discussed more in depth on the <a href="../programs_and_genomes/index.html">Programs and Genomes page</a>. </p>
+<p><strong>Epigenetic Markers</strong> are how the nested structure of a push program is captured in the linear genome. They are extra values associated with each gene that denotes if the gene places an parenthesis in the program, and/or if the gene is silent. <strong>Epigenetic Markers</strong> are discussed more in depth on the <a href="../programs_and_genomes/index.html">Programs and Genomes page</a>.</p>
 <p>When generating random individuals during PushGP, random Plush genomes are generated and translated into programs. The individuals in the evolutionary population store both their genomes and their programs. Programs are executed during the individuals fitness evaluations, while genomes are manipulated by the genetic operators. When new genomes are needed (aka offspring) a new individual is created with the new genome, and the program for the new individual is produced by translating the new genome.</p>
 <h5>Evaluating Programs</h5>
 <p>Every Genetic Programming problem requires an error function, sometimes called a fitness function. This function takes a program produced by evolution, executes it, and evaluates how well it solved the problem.</p>

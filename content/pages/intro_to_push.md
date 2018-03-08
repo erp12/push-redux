@@ -1,9 +1,9 @@
 Title: Introduction To Push
 Summary: Introduction to the Push language and Push Genetic Programming.
 
-<a name="push_lang"></a> 
+<a name="push_lang"></a>
 #### The Push Language
- 
+
 The following paragraph has been taken from the Push language [homepage](<http://faculty.hampshire.edu/lspector/push.html>):
 
 >Push is a programming language designed for evolutionary computation, to be used as the programming language within which evolving programs are expressed. Push features a stack-based execution architecture in which there is a separate stack for each data type. In Push, "code" itself is a data type, allowing programs to manipulate their own code as they run and thereby to implement arbitrary and potentially novel control structures. This expressiveness is combined with syntactic minimality: the only syntax rule is that parentheses must be balanced. It is therefore trivial to generate and transform syntactically valid Push programs.
@@ -42,7 +42,7 @@ At this stage in our example, the item on top of the exec stack is a 5, which is
 | Integer | 5                                                                         |
 | String  |                                                                           |
 
-For the next step in the program execution, the item that is now on top of the exec stack is another literal. This time it is a string. 
+For the next step in the program execution, the item that is now on top of the exec stack is another literal. This time it is a string.
 
 | Stack   | Contents                                                                  |
 |---------|---------------------------------------------------------------------------|
@@ -58,15 +58,15 @@ The `string_from_integer` instruction is the instruction that will pop the top i
 |---------|---------------------------------------------------------------------------|
 | Exec    | `exec_dup (string_concat integer_from_string)`                            |
 | Integer |                                                                           |
-| String  | "5" 10"                                                                   |
+| String  | "5" "10"                                                                   |
 
-The next item on the exec stack is the ``exec_dup`` instruction. This instruction demonstrates the expressiveness of the Push language. Push programs continue to run until the exec stack is empty. Push instructions have the ability to modify the stacks, including the exec stack. This makes it trivial to create instructions that implement various forms of conditionals, modularity, and code reuse. The ``exec_dup`` instruction is one of the simplest forms of code reuse. It pushes a copy of the next item on the exec stack to the exec stack. 
+The next item on the exec stack is the ``exec_dup`` instruction. This instruction demonstrates the expressiveness of the Push language. Push programs continue to run until the exec stack is empty. Push instructions have the ability to modify the stacks, including the exec stack. This makes it trivial to create instructions that implement various forms of conditionals, modularity, and code reuse. The ``exec_dup`` instruction is one of the simplest forms of code reuse. It pushes a copy of the next item on the exec stack to the exec stack.
 
 | Stack   | Contents                                                                  |
 |---------|---------------------------------------------------------------------------|
 | Exec    | `(string_concat integer_from_string) (string_concat integer_from_string)` |
 | Integer |                                                                           |
-| String  | "5" 10"                                                                   |
+| String  | "5" "10"                                                                   |
 
 In this case, the duplicated item was a list of instructions. We can see now that this has the potential to reuse large sections of code easily.
 
@@ -76,7 +76,7 @@ The top item on the exec stack is now a list. As mentioned above, the contents w
 |---------|---------------------------------------------------------------------------|
 | Exec    | `string_concat integer_from_string (string_concat integer_from_string)`   |
 | Integer |                                                                           |
-| String  | "5" 10"                                                                   |
+| String  | "5" "10"                                                                   |
 
 Now the top item of the exec stack is the `string_concat` instruction. This instruction will concatenate the top two strings and push the result back onto the string stack.
 
@@ -125,7 +125,7 @@ The `integer_from_string` instruction is also lacking arguments, and will be ign
 The above state is the output of the push program. The remaining items on the stacks can be utilized as needed.
 
 
-<a name="push_gp"></a> 
+<a name="push_gp"></a>
 #### Push Genetic Programming
 
 The following paragraph has been taken from the Push language [homepage](http://faculty.hampshire.edu/lspector/push.html).
@@ -147,7 +147,7 @@ An "atom" refers to either an instruction or a literal. **Atom generators** are 
 
 When generating a random genome, PushGP selects **atom generators** at random. If the atom generator is a constant, it is added to the genome. If the atom generator is an anonymous function, it is called and its response if added to the genome. If the atom generator is an instruction, it is added to the genome.
 
-**Epigenetic Markers** are how the nested structure of a push program is captured in the linear genome. They are extra values associated with each gene that denotes if the gene places an parenthesis in the program, and/or if the gene is silent. **Epigenetic Markers** are discussed more in depth on the [Programs and Genomes page](../programs_and_genomes/index.html). 
+**Epigenetic Markers** are how the nested structure of a push program is captured in the linear genome. They are extra values associated with each gene that denotes if the gene places an parenthesis in the program, and/or if the gene is silent. **Epigenetic Markers** are discussed more in depth on the [Programs and Genomes page](../programs_and_genomes/index.html).
 
 When generating random individuals during PushGP, random Plush genomes are generated and translated into programs. The individuals in the evolutionary population store both their genomes and their programs. Programs are executed during the individuals fitness evaluations, while genomes are manipulated by the genetic operators. When new genomes are needed (aka offspring) a new individual is created with the new genome, and the program for the new individual is produced by translating the new genome.
 
