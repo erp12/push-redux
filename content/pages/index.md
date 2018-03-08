@@ -29,7 +29,7 @@ Push is programming language that plays nice with evolutionay computing / geneti
             <div class="push-redux-card-title">
                 <h4>Push In Action</h4>
             </div>
-            <div class="push-redux-card-body"> 
+            <div class="push-redux-card-body">
                 <p>Push implementations and publications. <a href="http://faculty.hampshire.edu/lspector/push.html">Read More.</a></p>
             </div>
         </div>
@@ -46,7 +46,7 @@ Push is programming language that plays nice with evolutionay computing / geneti
     - [Control Structures](pages/control_structures/index.html)
     - [Program Simplification](pages/simplification/index.html)
     - [Names and Tags](pages/names_and_tags/index.html)
-    - [Autoconstruction](pages/autoconstruction/index.html)
+    - [Autoconstruction](https://push-language.hampshire.edu/t/autoconstructive-evolution/795)
 * [Programs and Genomes](pages/programs_and_genomes/index.html)
     - [Push Programs](pages/programs_and_genomes/index.html#push_programs)
     - [Plush Genomes](pages/programs_and_genomes/index.html#plush_genomes)
@@ -63,4 +63,3 @@ Push is programming language that plays nice with evolutionay computing / geneti
     - To Do: Program simplification page.
     - To Do: Autoconstruction page (or link to discourse)
     - To Do: Page pointing to Push implementations.
-
